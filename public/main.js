@@ -242,7 +242,7 @@
         },
         body: jsonData
       };
-      let base_url = 'https://maze-backend.herokuapp.com/api',
+      let base_url = 'http://brain404-backend.herokuapp.com/api',
           url = base_url + to;
 
       var xhttp = new XMLHttpRequest();
