@@ -230,7 +230,7 @@
       });
     }
 
-    //requests
+    //requests +
 
     function _sendRequest(to, data, form, clas) {
       document.querySelector('form.'+clas).classList.add('loading');
