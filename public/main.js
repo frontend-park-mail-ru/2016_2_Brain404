@@ -179,7 +179,8 @@
       });
       formLogin.el.addEventListener('submit', _submitLogin);
       formLogin.el.addEventListener('reset', event => {
-        _resetForm(formLogin.form);
+        // _resetForm(formLogin.form);
+        _resetForm(formLogin)
       });
       formRegister.el.addEventListener('submit', _submitRegister);
       formRegister.el.addEventListener('reset', event => {
@@ -217,9 +218,7 @@
     }
 
     function _resetForm(form){
-      let el = document.querySelector('form.'+form);
       _hideMess();
-      el.reset();
       let mess = document.querySelector('div.error.message');
       if( mess != null){
         mess.remove();
@@ -236,6 +235,7 @@
       document.querySelector('form.'+clas).classList.add('loading');
       let jsonData = JSON.stringify(data);
       let initPomise = {
+        method: 'POST',
         mode: 'cors',
         headers: {
           'Content-type': 'application/json'
@@ -245,30 +245,69 @@
       let base_url = 'http://brain404-backend.herokuapp.com/api',
           url = base_url + to;
 
-      var xhttp = new XMLHttpRequest();
-      xhttp.onreadystatechange = function() {
-        if (this.readyState == 4) {
-          document.querySelector('form.'+clas).classList.remove('loading');
-          if (xhttp.status != 200) {
-            let mess = _createMess('error', xhttp.status, xhttp.responseText);
-            form.el.appendChild(mess.el);
-            Object.keys(data).forEach( field => {
-              form.el.querySelector('input[name=' + field + ']').parentNode.classList.add('error');
-            });
-          } else {
-            let mess = _createMess('success', xhttp.status, xhttp.responseText);
-            form.el.appendChild(mess.el);
-          }
+      function to_json(response) {
+        let data= response.json();
+        if (response.status >= 200 && response.status < 300) {
+          console.log(data);
+          return Promise.resolve(data);
+        } else {
+          console.log(data);
+          return Promise.reject(data);
         }
-      };
-      xhttp.ontimeout = function() {
-        let mess = _createMess('error', 'Превышен таймаут!');
-        form.el.appendChild(mess.el);
       }
-      xhttp.open('POST', url, true);
-      xhttp.setRequestHeader('Content-type', 'application/json');
-      xhttp.timeout = 15000;
-      xhttp.send(jsonData);
+
+      function status(response) {
+        document.querySelector('form.'+clas).classList.remove('loading');
+        // if (response.status >= 200 && response.status < 300) {
+          return Promise.resolve(response);
+        // } else {
+          // return Promise.reject(response);
+        // s}
+      }
+
+      fetch(url, initPomise)
+        .then(status)
+        .then(to_json)
+        .then( data => {
+          console.log(data);
+          let mess = _createMess('success', data['login']);
+          form.el.appendChild(mess.el);
+        })
+        .catch ( error => {
+          error
+          // console.log(to_json(error));
+          console.log(error);
+          let mess = _createMess('error', error['msg']);
+          form.el.appendChild(mess.el);
+          Object.keys(data).forEach( field => {
+            form.el.querySelector('input[name=' + field + ']').parentNode.classList.add('error');
+          })
+        });
+      // var xhttp = new XMLHttpRequest();
+      // xhttp.onreadystatechange = function() {
+      //   if (this.readyState == 4) {
+      //     document.querySelector('form.'+clas).classList.remove('loading');
+      //     if (xhttp.status != 200) {
+      //       let mess = _createMess('error', xhttp.status, xhttp.responseText);
+      //       form.el.appendChild(mess.el);
+      //       Object.keys(data).forEach( field => {
+      //         form.el.querySelector('input[name=' + field + ']').parentNode.classList.add('error');
+      //       });
+      //     } else {
+      //       let mess = _createMess('success', xhttp.status, xhttp.responseText);
+      //       form.el.appendChild(mess.el);
+      //     }
+      //   }
+      // };
+      // xhttp.ontimeout = function() {
+      //   _hideMess();
+      //   let mess = _createMess('error', 'Превышен таймаут!');
+      //   form.el.appendChild(mess.el);
+      // }
+      // xhttp.open('POST', url, true);
+      // xhttp.setRequestHeader('Content-type', 'application/json');
+      // xhttp.timeout = 15000;
+      // xhttp.send(jsonData);
 
     }
 
