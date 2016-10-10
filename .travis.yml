@@ -8,7 +8,13 @@ before_install:
 - "npm i eslint-plugin-jsx-a11y@latest --save-dev"
 - "npm install eslint --save-dev"
 - "npm run lint"
+install:
+- npm i
+- npm i -g gulp
+- echo -ne '\n\e[B\npublic/semantic/\n' | npm i semantic-ui --save
+- cd public/semantic && gulp build && cd ../..
 deploy:
+  skip_cleanup: true
   provider: heroku
   app:
     dev: brain404frontend
