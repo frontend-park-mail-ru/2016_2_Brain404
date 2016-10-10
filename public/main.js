@@ -192,8 +192,7 @@
     function _submitLogin(event) {
       event.preventDefault();
       _hideMess();
-      let formData = formLogin.getFormData();
-      let empty = tryEmptyField(formLogin, formData);
+      let empty = formLogin.tryEmptyField();
       if (empty.length != 0) {
         let mess = _createMess('error', 'Заполни пустые поля!', '');
         formLogin.el.appendChild(mess.el);
@@ -205,9 +204,8 @@
     function _submitRegister(event) {
       event.preventDefault();
       _hideMess();
-      let formData = formRegister.getFormData();
-      let empty = tryEmptyField(formRegister, formData);
-      let valid = tryValidate(formRegister, formData);
+      let empty = formRegister.tryEmptyField();
+      let valid = formRegister.tryValidate();
       if ( valid ) {
         let mess = _createMess('error', 'Заполни форму правильно!', valid);
         formRegister.el.appendChild(mess.el);
@@ -232,6 +230,11 @@
     //requests +
 
     function _sendRequest(to, data, form, clas) {
+      let responseMap = {
+        200: '1',
+        400: '0',
+        406: '0'
+      };
       document.querySelector('form.'+clas).classList.add('loading');
       let jsonData = JSON.stringify(data);
       let initPomise = {
@@ -246,145 +249,52 @@
           url = base_url + to;
 
       function to_json(response) {
-        let data= response.json();
-        if (response.status >= 200 && response.status < 300) {
-          console.log(data);
-          return Promise.resolve(data);
-        } else {
-          console.log(data);
-          return Promise.reject(data);
-        }
+        return response.json();
       }
 
       function status(response) {
         document.querySelector('form.'+clas).classList.remove('loading');
-        // if (response.status >= 200 && response.status < 300) {
+        if (response.status in responseMap) {
           return Promise.resolve(response);
-        // } else {
-          // return Promise.reject(response);
-        // s}
+        } else {
+          return Promise.reject(response);
+        }
+      }
+
+      function serverStatus(response) {
+        if (responseMap[response.status] === '1') {
+          return Promise.resolve(response);
+        } else {
+          return Promise.reject(response);
+        }
       }
 
       fetch(url, initPomise)
         .then(status)
-        .then(to_json)
-        .then( data => {
-          console.log(data);
-          let mess = _createMess('success', data['login']);
-          form.el.appendChild(mess.el);
+        .then(response => {
+          serverStatus(response)
+          .then(to_json)
+          .then( data => {
+            console.log(data);
+            let mess = _createMess('success', data['login']);
+            form.el.appendChild(mess.el);
+          })
+          .catch ( error => {
+            to_json(error)
+            .then( error => {
+              console.log(error);
+              let mess = _createMess('error', error['msg']);
+              form.el.appendChild(mess.el);
+              Object.keys(data).forEach( field => {
+                form.el.querySelector('input[name=' + field + ']').parentNode.classList.add('error');
+              });
+            })
+          });
         })
         .catch ( error => {
-          error
-          // console.log(to_json(error));
-          console.log(error);
-          let mess = _createMess('error', error['msg']);
-          form.el.appendChild(mess.el);
-          Object.keys(data).forEach( field => {
-            form.el.querySelector('input[name=' + field + ']').parentNode.classList.add('error');
-          })
+            let mess = _createMess('error', 'Not a server error!');
+            form.el.appendChild(mess.el);
         });
-      // var xhttp = new XMLHttpRequest();
-      // xhttp.onreadystatechange = function() {
-      //   if (this.readyState == 4) {
-      //     document.querySelector('form.'+clas).classList.remove('loading');
-      //     if (xhttp.status != 200) {
-      //       let mess = _createMess('error', xhttp.status, xhttp.responseText);
-      //       form.el.appendChild(mess.el);
-      //       Object.keys(data).forEach( field => {
-      //         form.el.querySelector('input[name=' + field + ']').parentNode.classList.add('error');
-      //       });
-      //     } else {
-      //       let mess = _createMess('success', xhttp.status, xhttp.responseText);
-      //       form.el.appendChild(mess.el);
-      //     }
-      //   }
-      // };
-      // xhttp.ontimeout = function() {
-      //   _hideMess();
-      //   let mess = _createMess('error', 'Превышен таймаут!');
-      //   form.el.appendChild(mess.el);
-      // }
-      // xhttp.open('POST', url, true);
-      // xhttp.setRequestHeader('Content-type', 'application/json');
-      // xhttp.timeout = 15000;
-      // xhttp.send(jsonData);
-
-    }
-
-    //validate form
-    function tryEmptyField(form, formData) {
-      let errors = [];
-      let lastErrors = Array.from(document.getElementsByClassName('error'));
-      lastErrors.forEach( element => {
-        element.classList.remove('error');
-      });
-      Object.keys(formData).forEach( field => {
-        if (formData[field] == false){
-          errors.push(field)
-        }
-      });
-      errors.forEach(field => {
-        form.el.querySelector('input[name=' + field + ']').parentNode.classList.add('error');
-      })
-      return errors;
-    }
-
-    function validateEmail(field) {
-        let apos = field.indexOf('@');
-        let dotpos = field.lastIndexOf('.');
-        if (apos<1||dotpos-apos<2){
-            return false;
-        }
-        else {
-            return true;
-      }
-    }
-
-    function validateUsername(fld) {
-        let error = '',
-            illegalChars = /\W/; // allow letters, numbers, and underscores
-        if ((fld.length < 5) || (fld.length > 15)) {
-            error += 'Username от 5 до 15 символов!';
-        } else if (illegalChars.test(fld)) {
-            error += 'Username только буквы, цифры, нижн.подчеркивание!';
-        }
-        return error;
-      }
-
-    function validatePassword(fld, fld2) {
-        let error = '',
-            illegalChars = /[\W_]/; // allow only letters and numbers
-
-        if ((fld.length < 6) || (fld.length > 15)) {
-            error += 'Пароль от 6 до 15 символов!';
-        }
-        if (illegalChars.test(fld)) {
-            error += 'Пароль только цифры и буквы!';
-        }
-        if (fld != fld2){
-            error += 'Повтори пароль правильно!'
-        }
-        return error;
-    }
-
-    function tryValidate(form, formData){
-      let errorMess = '';
-      if (!validateEmail(formData.email)) {
-        form.el.querySelector('input[name=email]').parentNode.classList.add('error');
-        errorMess += 'Заполни правильно Email!';
-      }
-      let userValid = validateUsername(formData.login);
-      if (userValid) {
-        form.el.querySelector('input[name=login]').parentNode.classList.add('error');
-        errorMess += userValid;
-      }
-      let passValid = validatePassword(formData.password, formData.passwordRepeat);
-      if (passValid) {
-        form.el.querySelector('input[name=password]').parentNode.classList.add('error');
-        form.el.querySelector('input[name=passwordRepeat]').parentNode.classList.add('error');
-        errorMess += passValid;
-      }
-      return errorMess;
     }
 
     mainContainer.appendChild(buttons.el);
