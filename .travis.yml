@@ -11,8 +11,6 @@ before_install:
 install:
 - npm i
 - npm i -g gulp
-- echo -ne '\n\e[B\npublic/semantic/\n' | npm i semantic-ui --save
-- cd public/semantic && gulp build && cd ../..
 deploy:
   skip_cleanup: true
   provider: heroku
