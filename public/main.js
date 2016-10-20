@@ -4,6 +4,7 @@
         const Button = window.Button;
         const ModalForm = window.ModalForm;
         const Message = window.Message;
+        const ScoreBoard = window.ScoreBoard;
 
         const mainContainer = document.querySelector('.main_container');
 
@@ -39,7 +40,7 @@
                 controls: [
                     {
                         text: 'Войти',
-                        classAttrs: ['ui', 'button', 'login_submit', 'form_button'],
+                        classAttrs: ['ui', 'button', 'login_submit', 'form_button', 'pink'],
                         attrs: [
                             {
                                 type: 'submit',
@@ -48,7 +49,7 @@
                     },
                     {
                         text: 'Сбросить',
-                        classAttrs: ['ui', 'button', 'login_reset', 'form_button'],
+                        classAttrs: ['ui', 'button', 'login_reset', 'form_button', 'pink'],
                         attrs: [
                             {
                                 type: 'reset',
@@ -82,7 +83,7 @@
                 controls: [
                     {
                         text: 'Зарегистрироваться',
-                        classAttrs: ['ui', 'button', 'registe_submit', 'form_button'],
+                        classAttrs: ['ui', 'button', 'registe_submit', 'form_button', 'pink'],
                         attrs: [
                             {
                                 type: 'submit',
@@ -91,7 +92,7 @@
                     },
                     {
                         text: 'Сбросить',
-                        classAttrs: ['ui', 'button', 'register_reset', 'form_button'],
+                        classAttrs: ['ui', 'button', 'register_reset', 'form_button', 'pink'],
                         attrs: [
                             {
                                 type: 'reset',
@@ -126,6 +127,11 @@
                     },
                 ],
             },
+        });
+
+        const scoreBoard = new ScoreBoard({
+            el: document.createElement('dialog'),
+            classAttrs: ['ui', 'pink']
         });
 
         function _createMess(status, header, text) {
@@ -174,6 +180,12 @@
             buttonRegister.el.addEventListener('click', (event) => {
                 formRegister.el.showModal();
             });
+            buttonRegister.el.addEventListener('click', (event) => {
+                formRegister.el.showModal();
+            });
+            document.querySelector('.menu_scoreboard').addEventListener('click', event => {
+                scoreBoard.el.showModal();
+            });
             formLogin.el.addEventListener('submit', _submitLogin);
             formLogin.el.addEventListener('reset', (event) => {
                 // _resetForm(formLogin.form);
@@ -194,7 +206,7 @@
                 const mess = _createMess('error', 'Заполни пустые поля!', '');
                 formLogin.el.appendChild(mess.el);
             } else {
-                _sendRequest('/auth', formData, formLogin, 'login');
+                _sendRequest('/auth', formLogin.getFormData(), formLogin, 'login');
             }
         }
 
@@ -207,7 +219,7 @@
                 const mess = _createMess('error', 'Заполни форму правильно!', valid);
                 formRegister.el.appendChild(mess.el);
             } else {
-                _sendRequest('/registration', formData, formRegister, 'register');
+                _sendRequest('/registration', formRegister.getFormData(), formRegister, 'register');
             }
         }
 
@@ -299,6 +311,7 @@
         buttons.el.appendChild(buttonRegister.el);
         mainContainer.appendChild(formLogin.el);
         mainContainer.appendChild(formRegister.el);
+        mainContainer.appendChild(scoreBoard.el);
         _addListeners();
     }
 

@@ -42,10 +42,10 @@
     _updateHtml () {
       this.el.innerHTML = `
         <div class="close_icon close_icon_${this.form}">
-          <i class="close icon float_right"></i>
+          <i class="close pink icon float_right"></i>
         </div>
-        <h2 class="ui center aligned icon header">
-          <i class="circular users icon"></i>
+        <h2 class="ui center pink aligned icon header">
+          <i class="circular pink users icon"></i>
           ${this.data.title}
         </h2>
         <div class="description">
