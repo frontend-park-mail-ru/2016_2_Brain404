@@ -7,9 +7,9 @@
     class MainView extends View {
         constructor(options = {}) {
             super(options);
+            console.log('mainView');
             this.team = new AbouTeamView();
             this._el = document.querySelector('.main_container_view');
-            // this.brain404Icon();
             this.createElements();
             this.addElements();
             this.addListeners();
@@ -50,12 +50,12 @@
 
         addListeners() {
             this.buttonLogin.el.addEventListener('click', (event) => {
-                // formLogin.el.showModal();
                 console.log('click login');
+                this.router.go('/login');
             });
             this.buttonRegister.el.addEventListener('click', (event) => {
-                // formRegister.el.showModal();
                 console.log('click register');
+                this.router.go('/register');
             });
             document.querySelector('.menu_scoreboard').addEventListener('click', (event) => {
                 console.log('click scoreboard');
