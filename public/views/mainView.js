@@ -59,6 +59,7 @@
             });
             document.querySelector('.menu_scoreboard').addEventListener('click', (event) => {
                 console.log('click scoreboard');
+                this.router.go('/scoreboard');
             });
             document.querySelector('.menu_play').addEventListener('click', (event) => {
                 console.log('click play');
@@ -68,11 +69,11 @@
         menuIcon() {
             return `<div class="row menu">
                 		<div class="ui pink inverted vertical compact labeled massive icon menu ">
-                		  <a class="item menu_play">
+                		  <a class="item menu_play" onclick="return false">
                 		    <i class="gamepad icon"></i>
                 		    Играть
                 		  </a>
-                		  <a href="#" class="item menu_scoreboard">
+                		  <a href="" onclick="return false" class="item menu_scoreboard">
                 		  	<i class="ordered list icon"></i>
                 			Лидер борд
                 		  </a>

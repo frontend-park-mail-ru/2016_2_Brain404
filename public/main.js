@@ -9,131 +9,6 @@
         //     const mainContainer = document.querySelector('.main_container');
         //
         // // elements
-        //     const buttons = new Button({
-        //         el: document.createElement('div'),
-        //         classAttrs: ['ui', 'large', 'buttons'],
-        //     });
-        //
-        //     const buttonLogin = new Button({
-        //         el: document.createElement('button'),
-        //         classAttrs: ['ui', 'button', 'login', 'pink'],
-        //         text: 'Логин',
-        //     });
-        //
-        //     const buttonOr = new Button({
-        //         el: document.createElement('div'),
-        //         classAttrs: ['or'],
-        //     });
-        //
-        //     const buttonRegister = new Button({
-        //         el: document.createElement('button'),
-        //         classAttrs: ['ui', 'button', 'register', 'pink'],
-        //         text: 'Регистрация',
-        //     });
-        //
-        //     const formLogin = new ModalForm({
-        //         el: document.createElement('dialog'),
-        //         form: 'login',
-        //         classAttrs: ['ui', 'modal_login'],
-        //         data: {
-        //             title: 'Логин',
-        //             controls: [
-        //                 {
-        //                     text: 'Войти',
-        //                     classAttrs: ['ui', 'button', 'login_submit', 'form_button', 'pink'],
-        //                     attrs: [
-        //                         {
-        //                             type: 'submit',
-        //                         },
-        //                     ],
-        //                 },
-        //                 {
-        //                     text: 'Сбросить',
-        //                     classAttrs: ['ui', 'button', 'login_reset', 'form_button', 'pink'],
-        //                     attrs: [
-        //                         {
-        //                             type: 'reset',
-        //                         },
-        //                     ],
-        //                 },
-        //             ],
-        //             fields: [
-        //                 {
-        //                     label: 'Логин',
-        //                     type: 'text',
-        //                     name: 'login',
-        //                     required: 'required',
-        //                 },
-        //                 {
-        //                     label: 'Пароль',
-        //                     type: 'password',
-        //                     name: 'password',
-        //                     required: 'required',
-        //                 },
-        //             ],
-        //         },
-        //     });
-        //
-        //     const formRegister = new ModalForm({
-        //         el: document.createElement('dialog'),
-        //         form: 'register',
-        //         classAttrs: ['ui', 'modal_register'],
-        //         data: {
-        //             title: 'Регистрация',
-        //             controls: [
-        //                 {
-        //                     text: 'Зарегистрироваться',
-        //                     classAttrs: ['ui', 'button', 'registe_submit', 'form_button', 'pink'],
-        //                     attrs: [
-        //                         {
-        //                             type: 'submit',
-        //                         },
-        //                     ],
-        //                 },
-        //                 {
-        //                     text: 'Сбросить',
-        //                     classAttrs: ['ui', 'button', 'register_reset', 'form_button', 'pink'],
-        //                     attrs: [
-        //                         {
-        //                             type: 'reset',
-        //                         },
-        //                     ],
-        //                 },
-        //             ],
-        //             fields: [
-        //                 {
-        //                     label: 'Email',
-        //                     type: 'text',
-        //                     name: 'email',
-        //                     required: 'required',
-        //                 },
-        //                 {
-        //                     label: 'Логин',
-        //                     type: 'text',
-        //                     name: 'login',
-        //                     required: 'required',
-        //                 },
-        //                 {
-        //                     label: 'Пароль',
-        //                     type: 'password',
-        //                     name: 'password',
-        //                     required: 'required',
-        //                 },
-        //                 {
-        //                     label: 'Пароль ещё раз',
-        //                     type: 'password',
-        //                     name: 'passwordRepeat',
-        //                     required: 'required',
-        //                 },
-        //             ],
-        //         },
-        //     });
-        //
-        //     const scoreBoard = new ScoreBoard({
-        //         el: document.createElement('dialog'),
-        //         classAttrs: ['ui', 'pink']
-        //     });
-        //
         //     function _createMess(status, header, text) {
         //         const newMess = new Message({
         //             el: document.createElement('div'),
@@ -317,11 +192,13 @@
         const Router = window.Router;
         const LoginFormView = window.LoginFormView;
         const RegisterFormView = window.RegisterFormView;
+        const ScoreboardView = window.ScoreboardView;
         const MainView = window.MainView;
 
         (new Router())
             .addRoute('/login', LoginFormView)
             .addRoute('/register', RegisterFormView)
+            .addRoute('/scoreboard', ScoreboardView)
             .addRoute('/', MainView)
             .start();
     }

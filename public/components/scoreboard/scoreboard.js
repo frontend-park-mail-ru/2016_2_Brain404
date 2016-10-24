@@ -30,7 +30,8 @@
                 <table class="ui celled padded large table">
                     <thead>
                         <tr>
-                            <th><h4 class="ui pink header">Login name</h4></th>
+                          <th><h4 class="ui pink header">Место</h4></th>
+                            <th><h4 class="ui pink header">Логин</h4></th>
                             <th>
                                 <i class="star pink icon"></i>
                                 <i class="star pink icon"></i>
@@ -41,41 +42,40 @@
                     <tbody>
                         <tr>
                             <td>
+                              1
+                            </td>
+                            <td>
                               <h4 class="ui image header">
                                 <div class="content">
                                   Lena
-                                  <div class="sub header">Human Resources
-                                  </div>
                                 </div>
                               </h4></td>
                             <td>
                               22
                             </td>
                         </tr>
-                    </tbody>
-                    <tbody>
                         <tr>
+                            <td>
+                              1
+                            </td>
                             <td>
                               <h4 class="ui image header">
                                 <div class="content">
                                   Lena
-                                  <div class="sub header">Human Resources
-                                  </div>
                                 </div>
                               </h4></td>
                             <td>
                               22
                             </td>
                         </tr>
-                    </tbody>
-                    <tbody>
                         <tr>
+                            <td>
+                              1
+                            </td>
                             <td>
                               <h4 class="ui image header">
                                 <div class="content">
                                   Lena
-                                  <div class="sub header">Human Resources
-                                  </div>
                                 </div>
                               </h4></td>
                             <td>
