@@ -78,31 +78,14 @@
             this.hideMess();
             const empty = this.formLogin.tryEmptyField();
             if (empty.length !== 0) {
-                const mess = this.createMess('error', 'Заполни пустые поля!', '');
-                this.formLogin.el.appendChild(mess.el);
+                this.formLogin.createMess('error', 'Заполни пустые поля!', '');
+                // const mess = this.createMess('error', 'Заполни пустые поля!', '');
+                // this.formLogin.el.appendChild(mess.el);
             } else {
                 console.log('send request');
+                this.formLogin.sendRequest('/auth', 'login');
                 // _sendRequest('/auth', formLogin.getFormData(), formLogin, 'login');
             }
-        }
-
-        createMess(status, header, text) {
-            const newMess = new Message({
-                el: document.createElement('div'),
-                classAttrs: ['ui', status, 'message'],
-            });
-            const head = new Message({
-                el: document.createElement('div'),
-                classAttrs: ['header'],
-                text: header,
-            });
-            const content = new Message({
-                el: document.createElement('p'),
-                text,
-            });
-            newMess.el.appendChild(head.el);
-            newMess.el.appendChild(content.el);
-            return newMess;
         }
 
         pause() {

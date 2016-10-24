@@ -29,33 +29,33 @@
             const fields = this.data.fields;
             return fields.map((field) => {
                 return `
-        <div class="field ${field.required}">
-          <label>${field.label}</label>
-          <input type="${field.type}" name="${field.name}" placeholder="${field.label}">
-        </div>
-        `;
+                        <div class="field ${field.required}">
+                          <label>${field.label}</label>
+                          <input type="${field.type}" name="${field.name}" placeholder="${field.label}">
+                        </div>
+                        `;
             }).join(' ');
         }
 
         _updateHtml() {
             this.el.innerHTML = `
-        <div class="close_icon close_icon_${this.form}">
-          <i class="close pink icon float_right"></i>
-        </div>
-        <h2 class="ui center pink aligned icon header">
-          <i class="circular pink users icon"></i>
-          ${this.data.title}
-        </h2>
-        <div class="description">
-          <div class="form_container">
-            <form class="ui form ${this.form}">
-              ${this._getFields()}
-              <div class="js-controls_${this.form}">
-              </div>
-            </form>
-          </div>
-        </div>
-      `;
+                                <div class="close_icon close_icon_${this.form}">
+                                  <i class="close pink icon float_right"></i>
+                                </div>
+                                <h2 class="ui center pink aligned icon header">
+                                  <i class="circular pink users icon"></i>
+                                  ${this.data.title}
+                                </h2>
+                                <div class="description">
+                                  <div class="form_container">
+                                    <form class="ui form ${this.form}">
+                                      ${this._getFields()}
+                                      <div class="js-controls_${this.form}">
+                                      </div>
+                                    </form>
+                                  </div>
+                                </div>
+                                `;
         }
 
         _installControls() {
@@ -90,7 +90,26 @@
             return fields;
         }
 
-    // validate form
+        createMess(status, header, text) {
+            const newMess = new Message({
+                el: document.createElement('div'),
+                classAttrs: ['ui', status, 'message'],
+            });
+            const head = new Message({
+                el: document.createElement('div'),
+                classAttrs: ['header'],
+                text: header,
+            });
+            const content = new Message({
+                el: document.createElement('p'),
+                text,
+            });
+            newMess.el.appendChild(head.el);
+            newMess.el.appendChild(content.el);
+            this.el.appendChild(newMess.el);
+        }
+
+        // validate form
         tryEmptyField() {
             let formData = this.getFormData(),
                 errors = [],
@@ -167,6 +186,76 @@
                 errorMess += passValid;
             }
             return errorMess;
+        }
+
+        // request
+        sendRequest(to, clas) {
+            const responseMap = {
+                200: '1',
+                400: '0',
+                406: '0',
+            };
+            document.querySelector(`form.${clas}`).classList.add('loading');
+            // this.classList.add('loading');
+            const jsonData = JSON.stringify(this.getFormData());
+            const initPomise = {
+                method: 'POST',
+                mode: 'cors',
+                headers: {
+                    'Content-type': 'application/json',
+                },
+                body: jsonData,
+            };
+            const baseUrl = 'http://brain404-backend.herokuapp.com/api';
+            const url = baseUrl + to;
+
+            function toJson(response) {
+                return response.json();
+            }
+
+            function status(response) {
+                // document.querySelector(`form.${clas}`).classList.remove('loading');
+                if (response.status in responseMap) {
+                    return Promise.resolve(response);
+                } else {
+                    return Promise.reject(response);
+                }
+            }
+
+            function serverStatus(response) {
+                if (responseMap[response.status] === '1') {
+                    return Promise.resolve(response);
+                } else {
+                    return Promise.reject(response);
+                }
+            }
+            console.log(initPomise);
+            // fetch(url, initPomise)
+            // .then(status)
+            // .then((response) => {
+            //     serverStatus(response)
+            //   .then(to_json)
+            //   .then((data) => {
+            //       console.log(data);
+            //       const mess = this.createMess('success', data.login);
+            //     //   form.el.appendChild(mess.el);
+            //   })
+            //   .catch((error) => {
+            //       to_json(error)
+            //     .then((error) => {
+            //         console.log(error);
+            //         const mess = this.createMess('error', error.msg);
+            //         // form.el.appendChild(mess.el);
+            //         Object.keys(data).forEach((field) => {
+            //             form.el.querySelector(`input[name=${field}]`).parentNode.classList.add('error');
+            //         });
+            //     });
+            //   });
+            // })
+            // .catch((error) => {
+            //     const mess = this.createMess('error', 'Not a server error!');
+            //     // form.el.appendChild(mess.el);
+            // });
         }
 
   }
