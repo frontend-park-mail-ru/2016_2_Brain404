@@ -196,7 +196,6 @@
                 406: '0',
             };
             document.querySelector(`form.${clas}`).classList.add('loading');
-            // this.classList.add('loading');
             const jsonData = JSON.stringify(this.getFormData());
             const initPomise = {
                 method: 'POST',
@@ -206,7 +205,7 @@
                 },
                 body: jsonData,
             };
-            const baseUrl = 'http://brain404-backend.herokuapp.com/api';
+            const baseUrl = 'https://nameless-wildwood-32323.herokuapp.com/api';
             const url = baseUrl + to;
 
             function toJson(response) {
@@ -214,10 +213,12 @@
             }
 
             function status(response) {
-                // document.querySelector(`form.${clas}`).classList.remove('loading');
+                document.querySelector(`form.${clas}`).classList.remove('loading');
                 if (response.status in responseMap) {
+                    console.log('resolve');
                     return Promise.resolve(response);
                 } else {
+                    console.log('reject');
                     return Promise.reject(response);
                 }
             }
@@ -229,33 +230,28 @@
                     return Promise.reject(response);
                 }
             }
-            console.log(initPomise);
-            // fetch(url, initPomise)
-            // .then(status)
-            // .then((response) => {
-            //     serverStatus(response)
-            //   .then(to_json)
-            //   .then((data) => {
-            //       console.log(data);
-            //       const mess = this.createMess('success', data.login);
-            //     //   form.el.appendChild(mess.el);
-            //   })
-            //   .catch((error) => {
-            //       to_json(error)
-            //     .then((error) => {
-            //         console.log(error);
-            //         const mess = this.createMess('error', error.msg);
-            //         // form.el.appendChild(mess.el);
-            //         Object.keys(data).forEach((field) => {
-            //             form.el.querySelector(`input[name=${field}]`).parentNode.classList.add('error');
-            //         });
-            //     });
-            //   });
-            // })
-            // .catch((error) => {
-            //     const mess = this.createMess('error', 'Not a server error!');
-            //     // form.el.appendChild(mess.el);
-            // });
+            // console.log(initPomise);
+            fetch(url, initPomise)
+            .then(status)
+            .then((response) => {
+                serverStatus(response)
+                .then(toJson)
+                .then((data) => {
+                    const mess = this.createMess('success', data.login);
+                })
+                .catch((error) => {
+                    toJson(error)
+                    .then((error) => {
+                        const mess = this.createMess('error', error.msg);
+                        Object.keys(data).forEach((field) => {
+                            form.el.querySelector(`input[name=${field}]`).parentNode.classList.add('error');
+                        });
+                    });
+                });
+            })
+            .catch((error) => {
+                const mess = this.createMess('error', 'Not a server error!');
+            });
         }
 
   }

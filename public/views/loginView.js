@@ -79,12 +79,9 @@
             const empty = this.formLogin.tryEmptyField();
             if (empty.length !== 0) {
                 this.formLogin.createMess('error', 'Заполни пустые поля!', '');
-                // const mess = this.createMess('error', 'Заполни пустые поля!', '');
-                // this.formLogin.el.appendChild(mess.el);
             } else {
                 console.log('send request');
                 this.formLogin.sendRequest('/auth', 'login');
-                // _sendRequest('/auth', formLogin.getFormData(), formLogin, 'login');
             }
         }
 
