@@ -1,36 +1,12 @@
-let express = require('express');
-let parser = require('body-parser');
-let app = express();
-let technoDoc = require('techno-gendoc');
-let path = require('path');
+const express = require('express');
+const app = express();
+const technoDoc = require('techno-gendoc');
+const path = require('path');
 
-let technolibs = require('technolibs');
-let emailObj = {};
 
-app.use('/', express.static('public'));
-technoDoc.generate(require('./api'), 'public');
-
-app.use(parser.json());
-app.use('/libs', express.static('node_modules'));
-
-app.post('/api/messages', (req, res) => {
-	technolibs.publish(req.body).then(body => res.json(req.body));
-});
-
-app.get('/api/messages', function (req, res) {
-	res.send([
-		technoDoc.mock(require('./api/scheme/Message')),
-		technoDoc.mock(require('./api/scheme/Message')),
-		technoDoc.mock(require('./api/scheme/Message')),
-		technoDoc.mock(require('./api/scheme/Message'))
-	])});
-
-app.post('/users', (req, res) => {
-    console.log(req.body);
-    res.send(String(emailCount(req.body.email)));
-});
+const emailObj = {};
+['/', '/login', '/register', '/scoreboard'].forEach((path) => { app.use(path, express.static('public')); });
 
 app.listen(process.env.PORT || 3000, () => {
-	console.log(`App started on port ${process.env.PORT || 3000}`);
+    console.log(`App started on port ${process.env.PORT || 3000}`);
 });
-
