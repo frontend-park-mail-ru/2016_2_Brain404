@@ -1,64 +1,62 @@
 <fest:template xmlns:fest="http://fest.mail.ru" context_name="data">
-
-<div class="close_icon close_icon_">
-    <i class="close pink icon float_right"></i>
-</div>
-<table class="ui celled padded large table">
-<thead>
-    <tr>
-        <th><h4 class="ui pink header">Login name</h4></th>
-        <th>
-            <i class="star pink icon"></i>
-            <i class="star pink icon"></i>
-            <i class="star pink half icon"></i>
-        </th>
-    </tr>
-</thead>
-<tbody>
-    <tr>
-        <td>
-            <h4 class="ui image header">
-                <div class="content">
-                    Lena
-                    <div class="sub header">Human Resources
-                    </div>
-                </div>
-            </h4></td>
-        <td>
-            22
-        </td>
-    </tr>
-</tbody>
-<tbody>
-    <tr>
-        <td>
-            <h4 class="ui image header">
-                <div class="content">
-                    Lena
-                    <div class="sub header">Human Resources
-                    </div>
-                </div>
-            </h4></td>
-        <td>
-            22
-        </td>
-    </tr>
-</tbody>
-<tbody>
-    <tr>
-        <td>
-            <h4 class="ui image header">
-                <div class="content">
-                    Lena
-                    <div class="sub header">Human Resources
-                    </div>
-                </div>
-            </h4></td>
-        <td>
-            22
-        </td>
-    </tr>
-</tbody>
-</table>
-
+    <div class="close_icon close_icon_{data.name}">
+        <i class="close pink icon float_right"></i>
+    </div>
+    <table class="ui celled padded large table">
+        <thead>
+            <tr>
+                <th><h4 class="ui pink header">Место</h4></th>
+                <th><h4 class="ui pink header">Логин</h4></th>
+                <th>
+                    <i class="star pink icon"></i>
+                    <i class="star pink icon"></i>
+                    <i class="star pink half icon"></i>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    1
+                </td>
+                <td>
+                    <h4 class="ui image header">
+                        <div class="content">
+                            Lena
+                        </div>
+                    </h4></td>
+                <td>
+                    22
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    1
+                </td>
+                <td>
+                    <h4 class="ui image header">
+                        <div class="content">
+                            Lena
+                        </div>
+                    </h4></td>
+                <td>
+                    22
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    1
+                </td>
+                <td>
+                    <h4 class="ui image header">
+                        <div class="content">
+                            Lena
+                        </div>
+                    </h4></td>
+                <td>
+                    22
+                </td>
+            </tr>
+        </tbody>
+    </table>
 </fest:template>
