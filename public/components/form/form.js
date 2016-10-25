@@ -25,37 +25,9 @@
             });
         }
 
-        _getFields() {
-            const fields = this.data.fields;
-            return fields.map((field) => {
-                return `
-                        <div class="field ${field.required}">
-                          <label>${field.label}</label>
-                          <input type="${field.type}" name="${field.name}" placeholder="${field.label}">
-                        </div>
-                        `;
-            }).join(' ');
-        }
-
         _updateHtml() {
-            this.el.innerHTML = `
-                                <div class="close_icon close_icon_${this.form}">
-                                  <i class="close pink icon float_right"></i>
-                                </div>
-                                <h2 class="ui center pink aligned icon header">
-                                  <i class="circular pink users icon"></i>
-                                  ${this.data.title}
-                                </h2>
-                                <div class="description">
-                                  <div class="form_container">
-                                    <form class="ui form ${this.form}">
-                                      ${this._getFields()}
-                                      <div class="js-controls_${this.form}">
-                                      </div>
-                                    </form>
-                                  </div>
-                                </div>
-                                `;
+            let _template = window.fest['form/form.tmpl'](this);
+            this.el.innerHTML = _template;
         }
 
         _installControls() {
