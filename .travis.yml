@@ -8,6 +8,7 @@ before_install:
 - "npm i eslint-plugin-jsx-a11y@latest --save-dev"
 - "npm install eslint --save-dev"
 - "npm run lint"
+- "npm run fest"
 install:
 - npm i
 - npm i -g gulp
