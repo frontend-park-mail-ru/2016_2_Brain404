@@ -2,9 +2,10 @@
     // import
     const ModalForm = window.ModalForm;
     const Message = window.Message;
-    const View = window.View;
+    // const View = window.View;
+    const FormView = window.FormView;
 
-    class LoginFormView extends View {
+    class LoginFormView extends FormView {
         constructor(options = {}) {
             super(options);
             this._el = document.querySelector('.login_container_view');
@@ -91,26 +92,6 @@
 
         resume() {
             this.formLogin.el.showModal();
-        }
-
-        hideMess() {
-            const messError = document.querySelector('div.error.message');
-            const messSuccess = document.querySelector('div.success.message');
-            if (messError != null) {
-                messError.remove();
-            }
-            if (messSuccess != null) {
-                messSuccess.remove();
-            }
-            return this;
-        }
-
-        resetFields() {
-            const fieldsError = document.querySelectorAll('.field.error');
-            if (fieldsError) {
-                fieldsError.forEach((field) => { field.classList.remove('error'); });
-            }
-            return this;
         }
 
     }

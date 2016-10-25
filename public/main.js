@@ -8,36 +8,6 @@
         //
         //     const mainContainer = document.querySelector('.main_container');
         //
-        // // elements
-        //     function _createMess(status, header, text) {
-        //         const newMess = new Message({
-        //             el: document.createElement('div'),
-        //             classAttrs: ['ui', status, 'message'],
-        //         });
-        //         const head = new Message({
-        //             el: document.createElement('div'),
-        //             classAttrs: ['header'],
-        //             text: header,
-        //         });
-        //         const content = new Message({
-        //             el: document.createElement('p'),
-        //             text,
-        //         });
-        //         newMess.el.appendChild(head.el);
-        //         newMess.el.appendChild(content.el);
-        //         return newMess;
-        //     }
-        //
-        //     function _hideMess() {
-        //         const messError = document.querySelector('div.error.message');
-        //         const messSuccess = document.querySelector('div.success.message');
-        //         if (messError != null) {
-        //             messError.remove();
-        //         }
-        //         if (messSuccess != null) {
-        //             messSuccess.remove();
-        //         }
-        //     }
         //
         // // listener
         //     const _addListeners = function () {

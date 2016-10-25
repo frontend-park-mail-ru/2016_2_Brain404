@@ -2,12 +2,12 @@
     // import
     const ModalForm = window.ModalForm;
     const Message = window.Message;
-    const View = window.View;
+    // const View = window.View;
+    const FormView = window.FormView;
 
-    class RegisterFormView extends View {
+    class RegisterFormView extends FormView {
         constructor(options = {}) {
             super(options);
-            console.log('registerForm');
             this._el = document.querySelector('.register_container_view');
             this.createElements();
             this.addElements();
@@ -80,6 +80,22 @@
             document.querySelector('.close_icon_register').addEventListener('click', (event) => {
                 this.router.go('/');
             });
+            this.formRegister.el.addEventListener('reset', (event) => {
+                this.hideMess();
+                this.resetFields();
+            });
+            this.formRegister.el.addEventListener('submit', (event) => { event.preventDefault(); this.submitRegister(); });
+        }
+
+        submitRegister() {
+            this.hideMess();
+            const empty = this.formRegister.tryEmptyField();
+            const valid = this.formRegister.tryValidate();
+            if (valid) {
+                this.formRegister.createMess('error', 'Заполни форму правильно!', valid);
+            } else {
+                this.formRegister.sendRequest('/registration', 'register');
+            }
         }
 
         pause() {

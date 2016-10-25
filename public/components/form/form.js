@@ -26,7 +26,7 @@
         }
 
         _updateHtml() {
-            let _template = window.fest['form/form.tmpl'](this);
+            const _template = window.fest['form/form.tmpl'](this);
             this.el.innerHTML = _template;
         }
 
@@ -167,6 +167,8 @@
                 400: '0',
                 406: '0',
             };
+            console.log(this.el);
+            // this.el.classList.add('ui', 'loader');
             document.querySelector(`form.${clas}`).classList.add('loading');
             const jsonData = JSON.stringify(this.getFormData());
             const initPomise = {
