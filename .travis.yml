@@ -3,10 +3,10 @@ node_js: 6
 before_install:
 - export CHROME_BIN=/usr/bin/google-chrome
 - export DISPLAY=:99.0
-- sudo apt-get update
-- sudo apt-get install -y libappindicator1 fonts-liberation
-- sudo apt-get install -f google-chrome-stable
-- sh -e /etc/init.d/xvfb start
+- wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+- sudo sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
+- sudo apt-get update -qq
+- sudo apt-get install -qq google-chrome-stable
 install:
 - npm i
 - npm i -g gulp
