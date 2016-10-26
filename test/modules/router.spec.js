@@ -28,11 +28,11 @@
       this.router.history.pushState({}, '', '/login');
       expect(Route.prototype.navigate).not.toHaveBeenCalled();
 
-      this.router.go('/register');
-      // expect(Route.prototype.navigate).not.toHaveBeenCalled();
+      this.router.history.pushState({}, '', '/register');
+      expect(Route.prototype.navigate).not.toHaveBeenCalled();
 
-      this.router.go('/scoreboard');
-      // expect(Route.prototype.navigate).not.toHaveBeenCalled();
+      this.router.history.pushState({}, '', '/scoreboard');
+      expect(Route.prototype.navigate).not.toHaveBeenCalled();
     });
 
     it('После вызова метода переходы по роутам происходят', function () {
@@ -117,11 +117,10 @@
   //   it('метод переходит назад', function () {
   //     this.router.addRoute('/login', View);
   //     this.router.addRoute('/register', View);
-  //     this.router.start();
-  //     this.router.go('/login');
-  //     this.router.go('/register');
+  //     this.router.history.pushState({}, '', '/login');
+  //     this.router.history.pushState({}, '', '/register');
   //     this.router.setHistory(this.router.back());
-  //     expect(window.location.pathname).toBe('/login');
+  //     expect(this.router.activeRoute).toBe('/login');
   //   })
   // });
 
