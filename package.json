@@ -6,7 +6,7 @@
   "scripts": {
     "test": "karma start --single-run",
     "lint": "./node_modules/.bin/eslint public/components/message/message.js;exit 0",
-    "fest": "fest-build --dir=public/components",
+    "fest": "fest-build --dir=public",
     "karma:start": "./node_modules/karma/bin/karma start",
     "karma:run": "./node_modules/karma/bin/karma run"
   },
