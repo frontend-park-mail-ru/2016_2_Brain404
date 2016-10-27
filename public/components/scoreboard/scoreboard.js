@@ -1,11 +1,11 @@
-(function(){
+(function () {
     'use static';
 
     class ScoreBoard {
 
         constructor(opt) {
             this.el = opt.el;
-            this.name = 'score'
+            this.name = 'score';
             this.classAttrs = opt.classAttrs || [];
             this.render();
         }
@@ -17,17 +17,17 @@
         }
 
         setClassAttrs() {
-            this.classAttrs.forEach( name => {
+            this.classAttrs.forEach((name) => {
                 this.el.classList.add(name);
-            })
+            });
         }
 
-        updateHtml(){
-            let _template = window.fest['scoreboard/scoreboard.tmpl'](this);
+        updateHtml() {
+            const _template = window.fest['components/scoreboard/scoreboard.tmpl'](this);
             this.el.innerHTML = _template;
         }
     }
 
-    //exports
+    // exports
     window.ScoreBoard = ScoreBoard;
-})();
+}());

@@ -89,14 +89,6 @@
         }
 
         submitRegister() {
-            // this.hideMess();
-            // const empty = this.formRegister.tryEmptyField();
-            // const valid = this.formRegister.tryValidate();
-            // if (valid) {
-            //     this.formRegister.createMess('error', 'Заполни форму правильно!', valid);
-            // } else {
-            //     this.formRegister.sendRequest('/registration', 'register');
-            // }
             this.hideMess();
             const empty = this.formRegister.tryEmptyField();
             const valid = this.formRegister.tryValidate();
@@ -114,7 +106,7 @@
                     .catch(() => {
                         console.log(this.user.responseObj);
                         document.querySelector('form.register').classList.remove('loading');
-                        this.formLogin.createMess('error', this.user.responseObj.msg);
+                        this.formRegister.createMess('error', this.user.responseObj.msg);
                         Object.keys(this.formRegister.getFormData()).forEach((field) => {
                             this.formRegister.el.querySelector(`input[name=${field}]`).parentNode.classList.add('error');
                         });

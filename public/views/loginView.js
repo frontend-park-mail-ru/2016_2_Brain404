@@ -86,8 +86,11 @@
                 document.querySelector('form.login').classList.add('loading');
                 this.user.sendRequest('/auth', 'POST', JSON.stringify(this.formLogin.getFormData()))
                     .then(() => {
+                        console.log('login+');
                         document.querySelector('form.login').classList.remove('loading');
-                        this.formRegister.createMess('success', this.user.responseObj.msg);
+                        this.formLogin.createMess('success', this.user.responseObj.msg);
+                        this.user.isAuth = 1;
+                        console.log(this.user);
                     })
                     .catch(() => {
                         console.log(this.user.responseObj);
