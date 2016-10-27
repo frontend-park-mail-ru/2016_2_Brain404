@@ -15,8 +15,8 @@
         }
 
         createElements() {
-            this.scoreboard = new ScoreBoard({el: document.createElement('dialog'),
-                    classAttrs: ['ui', 'pink']});
+            this.scoreboard = new ScoreBoard({ el: document.createElement('dialog'),
+                    classAttrs: ['ui', 'pink'] });
         }
 
         addElements() {
@@ -24,16 +24,18 @@
         }
 
         addListeners() {
-          document.querySelector('.close_icon_score').addEventListener('click', (event) => {
-              this.router.go('/');
-          });
+            document.querySelector('.close_icon_score').addEventListener('click', (event) => {
+                this.router.go('/');
+            });
         }
 
         pause() {
+            super.pause();
             this.scoreboard.el.close();
         }
 
         resume() {
+            super.resume();
             this.scoreboard.el.showModal();
         }
 

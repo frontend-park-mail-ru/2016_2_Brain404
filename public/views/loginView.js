@@ -13,6 +13,7 @@
             this.addElements();
             this.addListeners();
             this.hide();
+            this.user = options.user;
         }
 
         createElements() {
@@ -78,20 +79,36 @@
         submitLogin() {
             this.hideMess();
             const empty = this.formLogin.tryEmptyField();
-            if (empty.length !== 0) {
+            if (empty.length) {
                 this.formLogin.createMess('error', 'Заполни пустые поля!', '');
             } else {
                 console.log('send request');
-                this.formLogin.sendRequest('/auth', 'login');
+                document.querySelector('form.login').classList.add('loading');
+                this.user.sendRequest('/auth', 'POST', JSON.stringify(this.formLogin.getFormData()))
+                    .then(() => {
+                        document.querySelector('form.login').classList.remove('loading');
+                        this.formRegister.createMess('success', this.user.responseObj.msg);
+                    })
+                    .catch(() => {
+                        console.log(this.user.responseObj);
+                        document.querySelector('form.login').classList.remove('loading');
+                        this.formLogin.createMess('error', this.user.responseObj.msg);
+                        Object.keys(this.formLogin.getFormData()).forEach((field) => {
+                            this.formLogin.el.querySelector(`input[name=${field}]`).parentNode.classList.add('error');
+                        });
+                    });
             }
         }
 
         pause() {
+            super.pause();
             this.formLogin.el.close();
         }
 
         resume() {
-            this.formLogin.el.showModal();
+            this.user.getSession()
+                .then(() => { this.router.go('/menu'); console.log(this.user.responseObj); })
+                .catch(() => { super.resume(); this.formLogin.el.showModal(); console.log(this.user.responseObj); });
         }
 
     }
