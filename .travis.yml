@@ -1,19 +1,23 @@
+sudo: required
+dist: trusty
 language: node_js
 node_js: 6
 before_install:
-- "npm i eslint-plugin-jsx-a11y@latest --save-dev"
-- "npm i eslint-plugin-import@latest --save-dev"
-- "npm i eslint-config-airbnb --save-dev"
-- "npm i eslint-plugin-react@latest --save-dev"
-- "npm i eslint-plugin-jsx-a11y@latest --save-dev"
-- "npm install eslint --save-dev"
-- "npm run lint"
-- "npm run fest"
+- export CHROME_BIN=/usr/bin/google-chrome
+- export DISPLAY=:99.0
+- sh -e /etc/init.d/xvfb start
+- sudo apt-get update
+- sudo apt-get install -y libappindicator1 fonts-liberation
+- wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+- sudo dpkg -i google-chrome*.deb
 install:
 - npm i
 - npm i -g gulp
+- npm i eslint --save-dev
+- npm i fest --save-dev
 - echo -ne '\n\e[B\npublic/semantic/\n' | npm i semantic-ui --save
 - cd public/semantic && gulp build && cd ../..
+- npm run fest
 deploy:
   skip_cleanup: true
   provider: heroku

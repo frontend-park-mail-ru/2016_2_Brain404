@@ -70,19 +70,8 @@
         }
 
         menuIcon() {
-            // <div class="ui pink inverted vertical compact labeled massive icon menu ">
-            //   <a class="item menu_play" onclick="return false">
-            //     <i class="gamepad icon"></i>
-            //     Играть
-            //   </a>
-            return `<div class="row menu">
-                        <div class="ui pink inverted vertical compact labeled massive icon menu ">
-                		  <a href="" onclick="return false" class="item menu_scoreboard">
-                		  	<i class="ordered list icon"></i>
-                			Лидер борд
-                		  </a>
-                		</div>
-	              </div>`;
+            const _template = window.fest['views/mainView.tmpl'](this);
+            return _template;
         }
 
         resume() {
