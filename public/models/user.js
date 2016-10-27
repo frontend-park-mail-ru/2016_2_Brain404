@@ -6,7 +6,7 @@
                 200: '1',
                 400: '0',
                 401: '0',
-                406: '0',
+                403: '0',
             };
             this.email = opt.email || '';
             this.login = opt.login || '';
@@ -75,7 +75,6 @@
                     .then(this.toJson)
                     .then((data) => {
                         console.log(data.login);
-                        // const mess = this.createMess('success', data.login);
                         this.responseObj = { status: 1, msg: data.login };
                         resolve(this.responseObj);
                     })

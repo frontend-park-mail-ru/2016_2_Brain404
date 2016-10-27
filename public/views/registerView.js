@@ -95,16 +95,14 @@
             if (valid) {
                 this.formRegister.createMess('error', 'Заполни форму правильно!', valid);
             } else {
-                console.log('send request');
                 document.querySelector('form.register').classList.add('loading');
                 this.user.sendRequest('/registration', 'POST', JSON.stringify(this.formRegister.getFormData()))
                     .then(() => {
                         document.querySelector('form.register').classList.remove('loading');
                         this.formRegister.createMess('success', this.user.responseObj.msg);
-                        // this.user.responseObj; })
+                        setTimeout(() => { this.router.go('/'); }, 2000);
                     })
                     .catch(() => {
-                        console.log(this.user.responseObj);
                         document.querySelector('form.register').classList.remove('loading');
                         this.formRegister.createMess('error', this.user.responseObj.msg);
                         Object.keys(this.formRegister.getFormData()).forEach((field) => {

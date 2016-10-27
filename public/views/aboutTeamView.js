@@ -7,11 +7,16 @@
             super(options);
             this._el = document.querySelector('.about_team');
             this.brain404Icon();
+            this.hide();
         }
 
         brain404Icon() {
-            let _template = window.fest['views/aboutTeamView.tmpl']();
+            const _template = window.fest['views/aboutTeamView.tmpl']();
             this._el.innerHTML = _template;
+        }
+
+        resume() {
+            super.resume();
         }
     }
 
