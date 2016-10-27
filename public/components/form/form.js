@@ -26,7 +26,8 @@
         }
 
         _updateHtml() {
-            const _template = window.fest['form/form.tmpl'](this);
+            const _template = window.fest['components/form/form.tmpl'](this);
+
             this.el.innerHTML = _template;
         }
 

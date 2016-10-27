@@ -3,5 +3,4 @@ node_modules/
 public/api/
 public/semantic/
 semantic.json
-public/component/*.tmpl.js
-public/views/*.tmpl.js
+**/*.tmpl.js
