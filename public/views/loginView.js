@@ -90,7 +90,7 @@
                         document.querySelector('form.login').classList.remove('loading');
                         this.formLogin.createMess('success', this.user.responseObj.msg);
                         this.user.isAuth = 1;
-                        console.log(this.user);
+                        setTimeout(() => { this.router.go('/menu'); }, 2000);
                     })
                     .catch(() => {
                         console.log(this.user.responseObj);

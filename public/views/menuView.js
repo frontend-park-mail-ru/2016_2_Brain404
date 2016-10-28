@@ -3,13 +3,14 @@
     const Button = window.Button;
     const View = window.View;
     const AbouTeamView = window.AbouTeamView;
+    const Menu = window.Menu;
     // const user = window.User;
 
-    class MainView extends View {
+    class MenuView extends View {
         constructor(options = {}) {
             super(options);
             this.team = new AbouTeamView();
-            this._el = document.querySelector('.main_container_view');
+            this._el = document.querySelector('.menu_container_view');
             this.createElements();
             this.addElements();
             this.addListeners();
@@ -22,25 +23,27 @@
                 el: document.createElement('div'),
                 classAttrs: ['ui', 'pink', 'inverted', 'vertical', 'labeled', 'massive', 'icon', 'menu'],
                 list: [
-                    { iconClass: 'sign in icon', lable: 'Логин', clas: 'login' },
+                    { iconClass: 'game icon', lable: 'Играть', clas: 'play' },
                     { iconClass: 'ordered list icon', lable: 'Лидерборд', clas: 'scoreboard' },
-                    { iconClass: 'add user icon', lable: 'Регистрация', clas: 'register' }],
+                    { iconClass: 'sign out icon', lable: 'Выйти', clas: 'logout' }],
             });
         }
 
         addElements() {
+            // this._el.innerHTML = this.menuIcon();
             this._el.appendChild(this.menu.el);
         }
 
         addListeners() {
-            document.querySelector('.menu_login').addEventListener('click', (event) => {
-                this.router.go('/login');
-            });
             document.querySelector('.menu_scoreboard').addEventListener('click', (event) => {
+                console.log('click scoreboard');
                 this.router.go('/scoreboard');
             });
-            document.querySelector('.menu_register').addEventListener('click', (event) => {
-                this.router.go('/register');
+            document.querySelector('.menu_play').addEventListener('click', (event) => {
+                console.log('click play');
+            });
+            document.querySelector('.menu_logout').addEventListener('click', (event) => {
+                console.log('click logout');
             });
         }
 
@@ -51,8 +54,8 @@
 
         resume() {
             this.user.getSession()
-                .then(() => { this.router.go('/menu'); console.log(this.user.responseObj); })
-                .catch(() => { this._el.style.display = 'block'; this.team.resume(); console.log(this.user.responseObj); });
+                .then(() => { this._el.style.display = 'block'; this.team.resume(); console.log(this.user.responseObj); })
+                .catch(() => { this.router.go('/'); console.log(this.user.responseObj); });
         }
 
         pause() {
@@ -61,5 +64,5 @@
         }
     }
 
-    window.MainView = MainView;
+    window.MenuView = MenuView;
 }());
