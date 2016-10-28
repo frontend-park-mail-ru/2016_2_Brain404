@@ -13,7 +13,7 @@ module.exports = function (config) {
       './test/**/*.spec.js'
     ],
 
-    reporters: ['progress', 'coverage'],
+    reporters: ['progress', 'coverage', 'spec'],
     preprocessors: {
       './public/components/**/*.js': ['coverage'],
       './public/modules/**/*.js': ['coverage'],
@@ -31,7 +31,8 @@ module.exports = function (config) {
     plugins: [
       'karma-jasmine',
       'karma-chrome-launcher',
-      'karma-coverage'
+      'karma-coverage',
+      'karma-spec-reporter'
     ],
     browsers: ['Chrome'],
     customLaunchers: {

@@ -22,7 +22,7 @@
     describe('View.fn.pause', function () {
       it('по умолчанию устанавливает элементу атрибут hidden в true', function () {
         this.view.pause();
-        expect(this.view._el.hidden).toBe(true);
+        expect(this.view._el.style.display).toBe('none');
       });
     });
 
