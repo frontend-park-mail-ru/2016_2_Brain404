@@ -102,6 +102,7 @@
         pause() {
             super.pause();
             this.resetFields();
+            super.hideMess();
             this.formLogin.el.close();
         }
 

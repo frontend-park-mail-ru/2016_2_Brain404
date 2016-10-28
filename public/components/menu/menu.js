@@ -17,7 +17,6 @@
         }
 
         setList(list) {
-            console.log(list);
             let str = '';
             list.forEach((element) => {
                 let _template = window.fest['components/menu/menu.tmpl'](element);

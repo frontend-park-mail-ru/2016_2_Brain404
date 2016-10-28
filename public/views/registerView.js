@@ -114,6 +114,7 @@
         pause() {
             super.pause();
             this.resetFields();
+            super.hideMess();
             this.formRegister.el.close();
         }
 

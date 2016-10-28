@@ -1,12 +1,5 @@
 (function () {
 
-    let col = [
-        { login: 5, score: 5 },
-        { login: 4, score: 4 },
-        { login: 3, score: 3 },
-        { login: 2, score: 2 },
-        { login: 1, score: 1 },
-    ];
     class CollectionUsers {
 
         constructor(opt) {
@@ -16,7 +9,7 @@
                 401: '0',
                 403: '0',
             };
-            this.collection = col;
+            this.collection = [];
             this.collectionSize = opt.collectionSize || 0;
 
         }
