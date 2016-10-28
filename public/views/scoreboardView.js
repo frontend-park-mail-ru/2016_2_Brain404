@@ -7,12 +7,12 @@
     class ScoreboardView extends View {
         constructor(options = {}) {
             super(options);
+            this.collectionUsers = new CollectionUsers({});
             this._el = document.querySelector('.scoreboard_container_view');
             this.createElements();
             this.addElements();
             this.addListeners();
             this.hide();
-            this.collectionUsers = new CollectionUsers({});
         }
 
         createElements() {
@@ -32,12 +32,13 @@
 
         pause() {
             super.pause();
-            this.scoreboard.el.close();
+            if (this.scoreboard.el.hasAttribute('open')) {
+                this.scoreboard.el.close();
+            }
         }
 
         resume() {
             super.resume();
-            // this.scoreboard.collectionUsers = this.collectionUsers.getCollection();
             this.collectionUsers.sendRequest()
             .then(() => {
                 this.scoreboard.setCollection(this.collectionUsers.getCollection());

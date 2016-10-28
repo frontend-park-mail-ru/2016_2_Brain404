@@ -9,13 +9,16 @@
         const User = window.User;
 
         const user = new User({});
+        user.getSession()
+            .then(() => {
+                (new Router())
+                    .addRoute('/login', LoginFormView, { user })
+                    .addRoute('/scoreboard', ScoreboardView, { user })
+                    .addRoute('/register', RegisterFormView, { user })
+                    .addRoute('/menu', MenuView, { user })
+                    .addRoute('/', MainView, { user })
+                    .start();
+            });
 
-        (new Router())
-            .addRoute('/login', LoginFormView, { user })
-            .addRoute('/scoreboard', ScoreboardView, { user })
-            .addRoute('/register', RegisterFormView, { user })
-            .addRoute('/menu', MenuView, { user })
-            .addRoute('/', MainView, { user })
-            .start();
     }
 }());

@@ -7,12 +7,12 @@
     class RegisterFormView extends FormView {
         constructor(options = {}) {
             super(options);
+            this.user = options.user;
             this._el = document.querySelector('.register_container_view');
             this.createElements();
             this.addElements();
             this.addListeners();
             this.hide();
-            this.user = options.user;
         }
 
         createElements() {
@@ -99,6 +99,8 @@
                     .then(() => {
                         document.querySelector('form.register').classList.remove('loading');
                         this.formRegister.createMess('success', this.user.responseObj.msg);
+                        this.user.isAuth = 1;
+                        this.user.login = this.user.responseObj.msg;
                         this.router.go('/');
                     })
                     .catch(() => {
@@ -114,15 +116,19 @@
         pause() {
             super.pause();
             this.resetFields();
-            super.hideMess();
-            this.formRegister.el.close();
+            this.hideMess();
+            if (this.formRegister.el.hasAttribute('open')) {
+                this.formRegister.el.close();
+            }
         }
 
         resume() {
-            this.user.getSession()
-                .then(() => { this.router.go('/menu'); })
-                .catch(() => { super.resume(); this.formRegister.el.showModal();
-                });
+            if (this.user.isAuth) {
+                this.router.go('/menu');
+            } else {
+                super.resume();
+                this.formRegister.el.showModal();
+            }
         }
 
     }

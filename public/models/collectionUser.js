@@ -61,6 +61,7 @@
         }
 
         status(response) {
+            // console.log(response.status);
             if (response.status in this.responseMap) {
                 return Promise.resolve(response);
             } else {
