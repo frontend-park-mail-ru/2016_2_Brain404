@@ -55,6 +55,7 @@
          */
         hide(options = {}) {
             this._el.style.display = 'none';
+            this._el.hidden = true;
         }
 
         /**

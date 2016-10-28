@@ -55,7 +55,6 @@
     });
 
   });
-
   // describe('Route.fn.leave', function () {
   //   beforeEach(function () {
   //     this.route = new Route('/path/:key', View);

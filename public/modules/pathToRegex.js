@@ -55,7 +55,6 @@
             return null;
         };
     };
-
     // export
     window.pathToRegex = pathToRegex;
 

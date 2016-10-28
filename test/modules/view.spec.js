@@ -19,7 +19,6 @@
       });
     });
 
-
     describe('View.fn.pause', function () {
       it('по умолчанию устанавливает элементу атрибут hidden в true', function () {
         this.view.pause();
