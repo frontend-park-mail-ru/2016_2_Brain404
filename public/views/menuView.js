@@ -58,10 +58,10 @@
                 });
         }
 
-        // menuIcon() {
-        //     const _template = window.fest['views/mainView.tmpl'](this);
-        //     return _template;
-        // }
+        menuIcon() {
+            const _template = window.fest['views/mainView.tmpl'](this);
+            return _template;
+        }
 
         resume() {
             this.user.getSession()
