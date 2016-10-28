@@ -48,7 +48,7 @@
          */
         show(options = {}) {
             this._el.style.display = 'block';
-            // this._el.hidden = false;
+            this._el.hidden = false;
         }
 
         /**
@@ -57,7 +57,7 @@
          */
         hide(options = {}) {
             this._el.style.display = 'none';
-            // this._el.hidden = true;
+            this._el.hidden = true;
         }
 
         /**
