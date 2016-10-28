@@ -3,3 +3,5 @@ node_modules/
 public/api/
 public/semantic/
 semantic.json
+**/*.tmpl.js
+pubic/coverage

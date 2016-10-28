@@ -2,17 +2,17 @@
     // import
     const ModalForm = window.ModalForm;
     const Message = window.Message;
-    const View = window.View;
+    const FormView = window.FormView;
 
-    class RegisterFormView extends View {
+    class RegisterFormView extends FormView {
         constructor(options = {}) {
             super(options);
-            console.log('registerForm');
             this._el = document.querySelector('.register_container_view');
             this.createElements();
             this.addElements();
             this.addListeners();
             this.hide();
+            this.user = options.user;
         }
 
         createElements() {
@@ -80,14 +80,48 @@
             document.querySelector('.close_icon_register').addEventListener('click', (event) => {
                 this.router.go('/');
             });
+            this.formRegister.el.addEventListener('reset', (event) => {
+                this.hideMess();
+                this.resetFields();
+            });
+            this.formRegister.el.addEventListener('submit', (event) => { event.preventDefault(); this.submitRegister(); });
+        }
+
+        submitRegister() {
+            this.hideMess();
+            const empty = this.formRegister.tryEmptyField();
+            const valid = this.formRegister.tryValidate();
+            if (valid) {
+                this.formRegister.createMess('error', 'Заполни форму правильно!', valid);
+            } else {
+                document.querySelector('form.register').classList.add('loading');
+                this.user.sendRequest('/registration', 'POST', JSON.stringify(this.formRegister.getFormData()))
+                    .then(() => {
+                        document.querySelector('form.register').classList.remove('loading');
+                        this.formRegister.createMess('success', this.user.responseObj.msg);
+                        this.router.go('/');
+                    })
+                    .catch(() => {
+                        document.querySelector('form.register').classList.remove('loading');
+                        this.formRegister.createMess('error', this.user.responseObj.msg);
+                        Object.keys(this.formRegister.getFormData()).forEach((field) => {
+                            this.formRegister.el.querySelector(`input[name=${field}]`).parentNode.classList.add('error');
+                        });
+                    });
+            }
         }
 
         pause() {
+            super.pause();
+            this.resetFields();
             this.formRegister.el.close();
         }
 
         resume() {
-            this.formRegister.el.showModal();
+            this.user.getSession()
+                .then(() => { this.router.go('/menu'); })
+                .catch(() => { super.resume(); this.formRegister.el.showModal();
+                });
         }
 
     }

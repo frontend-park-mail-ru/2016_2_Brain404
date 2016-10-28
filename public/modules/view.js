@@ -46,7 +46,7 @@
          * @param {Object} [options={}] - Объект с параметрами
          */
         show(options = {}) {
-            this._el.hidden = false;
+            this._el.style.display = 'block';
         }
 
         /**
@@ -54,7 +54,7 @@
          * @param {Object} [options={}] - Объект с параметрами
          */
         hide(options = {}) {
-            this._el.hidden = true;
+            this._el.style.display = 'none';
         }
 
         /**

@@ -5,7 +5,7 @@ const path = require('path');
 
 
 const emailObj = {};
-['/', '/login', '/register'].forEach((path) => { app.use(path, express.static('public')); });
+['/', '/login', '/register', '/scoreboard', '/menu'].forEach((path) => { app.use(path, express.static('public')); });
 
 app.listen(process.env.PORT || 3000, () => {
     console.log(`App started on port ${process.env.PORT || 3000}`);
