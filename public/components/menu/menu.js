@@ -25,7 +25,6 @@
             	  <span class="about_acount_login">${this.login}</span>
             	</a></div>`;
             }
-
             list.forEach((element) => {
                 let _template = window.fest['components/menu/menu.tmpl'](element);
                 str += _template;

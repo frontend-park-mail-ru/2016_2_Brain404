@@ -19,6 +19,5 @@
                     .addRoute('/', MainView, { user })
                     .start();
             });
-
     }
 }());
