@@ -55,18 +55,5 @@
     });
 
   });
-  // describe('Route.fn.leave', function () {
-  //   beforeEach(function () {
-  //     this.route = new Route('/path/:key', View);
-  //     spyOn(View.prototype, 'pause');
-  //   });
-  //
-  //   it('При покидании роута у view вызывается метод pause', function () {
-  //     this.route.navigate('/path/123');
-  //     this.route.leave();
-  //     expect(View.prototype.pause).toHaveBeenCalled();
-  //   });
-  // });
-
 
 })();
