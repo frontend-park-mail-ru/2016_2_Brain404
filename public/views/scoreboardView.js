@@ -17,7 +17,7 @@
 
         createElements() {
             this.scoreboard = new ScoreBoard({ el: document.createElement('dialog'),
-                    classAttrs: ['ui', 'pink'] });
+                classAttrs: ['ui', 'pink'] });
         }
 
         addElements() {
