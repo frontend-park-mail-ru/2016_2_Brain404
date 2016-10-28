@@ -20,10 +20,8 @@
             console.log(list);
             let str = '';
             list.forEach((element) => {
-                str += `<a href="" onClick="return false" class="item menu_${element.clas}">
-                            <i class="${element.iconClass}"></i>
-                            ${element.lable}
-                        </a>`;
+                let _template = window.fest['components/menu/menu.tmpl'](element);
+                str += _template;
             });
             this.el.innerHTML = str;
         }
