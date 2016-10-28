@@ -1,0 +1,37 @@
+<fest:template xmlns:fest="http://fest.mail.ru" context_name="data">
+<div>
+    <fest:attributes>
+        <fest:attribute name="class" value="close_icon close_icon_{data.form}"/>
+    </fest:attributes>
+    <i class="close pink icon float_right"></i>
+</div>
+<h2 class="ui center pink aligned icon header">
+<i class="circular pink users icon"></i>
+    <fest:value>data.data.title</fest:value>
+</h2>
+<div class="description">
+<div class="form_container">
+    <form>
+        <fest:attributes>
+            <fest:attribute name="class" value="ui form {data.form}"/>
+        </fest:attributes>
+        <fest:for iterate="data.data.fields" index="i" value="field">
+            <div>
+                <fest:attributes>
+                    <fest:attribute name="class" value="field {field.required}"/>
+                </fest:attributes>
+                <fest:element name="label">
+                    <fest:value>field.label</fest:value>
+                </fest:element>
+                <input type="{field.type}" name="{field.name}" placeholder="{field.label}"/>
+            </div>
+        </fest:for>
+        <div>
+            <fest:attributes>
+                <fest:attribute name="class" value="js-controls_{data.form}"/>
+            </fest:attributes>
+        </div>
+    </form>
+</div>
+</div>
+</fest:template>

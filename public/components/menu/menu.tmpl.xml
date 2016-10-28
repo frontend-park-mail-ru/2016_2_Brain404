@@ -1,0 +1,16 @@
+<fest:template xmlns:fest="http://fest.mail.ru" context_name="element">
+
+<a href="" onClick="return false">
+    <fest:attributes>
+        <fest:attribute name="class" value="item menu_{element.clas}"/>
+    </fest:attributes>
+    <i>
+        <fest:attributes>
+            <fest:attribute name="class" value="{element.iconClass}"/>
+        </fest:attributes>
+    </i>
+    <fest:element name="label">
+        <fest:value>element.lable</fest:value>
+    </fest:element>
+</a>
+</fest:template>

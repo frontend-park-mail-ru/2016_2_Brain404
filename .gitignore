@@ -1,3 +1,7 @@
 node_modules/
 .idea/
 public/api/
+public/semantic/
+semantic.json
+**/*.tmpl.js
+pubic/coverage
