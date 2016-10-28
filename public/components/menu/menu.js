@@ -5,6 +5,7 @@
             this.attrs = options.attrs || [];
             this.classAttrs = options.classAttrs || [];
             this.el = options.el;
+            this.login = options.login || '';
             this.render();
         }
 
@@ -17,8 +18,14 @@
         }
 
         setList(list) {
-            console.log(list);
             let str = '';
+            if (this.login) {
+                str += `<div class="about_acount"><a class="ui pink label ">
+            	  <i class="child icon big"></i>
+            	  ${this.login}
+            	</a></div>`;
+            }
+
             list.forEach((element) => {
                 let _template = window.fest['components/menu/menu.tmpl'](element);
                 str += _template;

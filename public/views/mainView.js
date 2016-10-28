@@ -3,18 +3,17 @@
     const Button = window.Button;
     const View = window.View;
     const AbouTeamView = window.AbouTeamView;
-    // const user = window.User;
 
     class MainView extends View {
         constructor(options = {}) {
             super(options);
+            this.user = options.user;
             this.team = new AbouTeamView();
             this._el = document.querySelector('.main_container_view');
             this.createElements();
             this.addElements();
             this.addListeners();
             this.hide();
-            this.user = options.user;
         }
 
         createElements() {
@@ -50,9 +49,11 @@
         }
 
         resume() {
-            this.user.getSession()
-                .then(() => { this.router.go('/menu'); console.log(this.user.responseObj); })
-                .catch(() => { this._el.style.display = 'block'; this.team.resume(); console.log(this.user.responseObj); });
+            if (this.user.isAuth) {
+                this.router.go('/menu');
+            } else {
+                this._el.style.display = 'block'; this.team.resume();
+            }
         }
 
         pause() {

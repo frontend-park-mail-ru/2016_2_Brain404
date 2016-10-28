@@ -9,13 +9,13 @@
     class MenuView extends View {
         constructor(options = {}) {
             super(options);
+            this.user = options.user;
             this.team = new AbouTeamView();
             this._el = document.querySelector('.menu_container_view');
             this.createElements();
             this.addElements();
             this.addListeners();
             this.hide();
-            this.user = options.user;
         }
 
         createElements() {
@@ -24,26 +24,24 @@
                 classAttrs: ['ui', 'pink', 'inverted', 'vertical', 'labeled', 'massive', 'icon', 'menu'],
                 list: [
                     { iconClass: 'game icon', lable: 'Играть', clas: 'play' },
-                    { iconClass: 'ordered list icon', lable: 'Лидерборд', clas: 'scoreboard' },
+                    { iconClass: 'ordered list icon', lable: 'Лидерборд', clas: 'scoreboard2' },
                     { iconClass: 'sign out icon', lable: 'Выйти', clas: 'logout' }],
+                login: this.user.login,
             });
         }
 
         addElements() {
-            // this._el.innerHTML = this.menuIcon();
             this._el.appendChild(this.menu.el);
         }
 
         addListeners() {
-            document.querySelector('.menu_scoreboard').addEventListener('click', (event) => {
-                console.log('click scoreboard');
+            document.querySelector('.menu_scoreboard2').addEventListener('click', (event) => {
                 this.router.go('/scoreboard');
             });
             document.querySelector('.menu_play').addEventListener('click', (event) => {
                 console.log('click play');
             });
             document.querySelector('.menu_logout').addEventListener('click', (event) => {
-                console.log('click logout');
                 this.submitLogout();
             });
         }
@@ -51,6 +49,7 @@
         submitLogout() {
             this.user.sendRequest('/logout', 'DELETE')
                 .then(() => {
+                    this.user.isAuth = 0;
                     this.router.go('/');
                 })
                 .catch(() => {
@@ -64,9 +63,11 @@
         }
 
         resume() {
-            this.user.getSession()
-                .then(() => { this._el.style.display = 'block'; this.team.resume(); console.log(this.user.responseObj); })
-                .catch(() => { this.router.go('/'); console.log(this.user.responseObj); });
+            if (this.user.isAuth) {
+                this._el.style.display = 'block'; this.team.resume();
+            } else {
+                this.router.go('/');
+            }
         }
 
         pause() {

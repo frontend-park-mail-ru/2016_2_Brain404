@@ -1,12 +1,5 @@
 (function () {
 
-    let col = [
-        { login: 5, score: 5 },
-        { login: 4, score: 4 },
-        { login: 3, score: 3 },
-        { login: 2, score: 2 },
-        { login: 1, score: 1 },
-    ];
     class CollectionUsers {
 
         constructor(opt) {
@@ -16,7 +9,7 @@
                 401: '0',
                 403: '0',
             };
-            this.collection = col;
+            this.collection = [];
             this.collectionSize = opt.collectionSize || 0;
 
         }
@@ -48,7 +41,6 @@
                     this.serverStatus(response)
                     .then(this.toJson)
                     .then((data) => {
-                        console.log(data);
                         this.collection = data;
                         resolve();
                     })
@@ -73,12 +65,10 @@
         }
 
         status(response) {
-            console.log(response.status);
+            // console.log(response.status);
             if (response.status in this.responseMap) {
-                console.log('resolve');
                 return Promise.resolve(response);
             } else {
-                console.log('reject');
                 return Promise.reject(response);
             }
         }

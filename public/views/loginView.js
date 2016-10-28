@@ -2,18 +2,17 @@
     // import
     const ModalForm = window.ModalForm;
     const Message = window.Message;
-    // const View = window.View;
     const FormView = window.FormView;
 
     class LoginFormView extends FormView {
         constructor(options = {}) {
             super(options);
+            this.user = options.user;
             this._el = document.querySelector('.login_container_view');
             this.createElements();
             this.addElements();
             this.addListeners();
             this.hide();
-            this.user = options.user;
         }
 
         createElements() {
@@ -82,15 +81,14 @@
             if (empty.length) {
                 this.formLogin.createMess('error', 'Заполни пустые поля!', '');
             } else {
-                console.log('send request');
                 document.querySelector('form.login').classList.add('loading');
                 this.user.sendRequest('/auth', 'POST', JSON.stringify(this.formLogin.getFormData()))
                     .then(() => {
-                        console.log('login+');
                         document.querySelector('form.login').classList.remove('loading');
                         this.formLogin.createMess('success', this.user.responseObj.msg);
                         this.user.isAuth = 1;
-                        this.router.go('/menu');
+                        this.user.login = this.user.responseObj.msg;
+                        this.router.go('/');
                     })
                     .catch(() => {
                         console.log(this.user.responseObj);
@@ -106,14 +104,19 @@
         pause() {
             super.pause();
             this.resetFields();
-            this.formLogin.el.close();
+            this.hideMess();
+            if (this.formLogin.el.hasAttribute('open')) {
+                this.formLogin.el.close();
+            }
         }
 
         resume() {
-            this.user.getSession()
-                .then(() => { this.router.go('/menu'); console.log(this.user.responseObj); })
-                .catch(() => { super.resume(); this.formLogin.el.showModal();
-                    console.log(this.user.responseObj); });
+            if (this.user.isAuth) {
+                this.router.go('/menu');
+            } else {
+                super.resume();
+                this.formLogin.el.showModal();
+            }
         }
 
     }

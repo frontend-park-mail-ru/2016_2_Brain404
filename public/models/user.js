@@ -24,20 +24,20 @@
             this.session = opt.session || '';
         }
 
-        getUser() {
-            return { email: this.email,
-                    login: this.login,
-                    score: this.score,
-                    password: this.password,
-                    session: this.session };
-        }
+        // getUser() {
+        //     return { email: this.email,
+        //             login: this.login,
+        //             score: this.score,
+        //             password: this.password,
+        //             session: this.session };
+        // }
 
         getSession() {
             return new Promise((resolve, reject) => {
                 console.log('getting session');
                 this.sendRequest('/session', 'GET')
-                    .then(() => { this.isAuth = 1; resolve(); })
-                    .catch(() => { reject(); });
+                    .then(() => { this.isAuth = 1; this.login = this.responseObj.msg; resolve(); })
+                    .catch(() => { this.isAuth = 0; resolve(); });
             });
         }
 
@@ -66,10 +66,8 @@
                         'Content-type': 'application/json',
                     },
                     body,
-                    // body: JSON.stringify(body),
                 };
                 const responseObj = {};
-                console.log(initPomise);
 
                 fetch(url, initPomise)
                 .then(this.status.bind(this))
@@ -77,14 +75,14 @@
                     this.serverStatus(response)
                     .then(this.toJson)
                     .then((data) => {
-                        console.log(data.login);
+                        // console.log(data.login);
                         this.responseObj = { status: 1, msg: data.login };
                         resolve(this.responseObj);
                     })
                     .catch((error) => {
                         this.toJson(error)
                         .then((error) => {
-                            console.log(error.msg);
+                            // console.log(error.msg);
                             this.responseObj = { status: 0, msg: error.msg };
                             reject(this.responseObj);
                         });
@@ -103,12 +101,12 @@
         }
 
         status(response) {
-            console.log(response.status);
+            // console.log(response.status);
             if (response.status in this.responseMap) {
-                console.log('resolve');
+                // console.log('resolve');
                 return Promise.resolve(response);
             } else {
-                console.log('reject');
+                // console.log('reject');
                 return Promise.reject(response);
             }
         }
