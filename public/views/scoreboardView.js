@@ -2,6 +2,7 @@
     // import
     const ScoreBoard = window.ScoreBoard;
     const View = window.View;
+    const CollectionUsers = window.CollectionUsers;
 
     class ScoreboardView extends View {
         constructor(options = {}) {
@@ -12,6 +13,7 @@
             this.addElements();
             this.addListeners();
             this.hide();
+            this.collectionUsers = new CollectionUsers({});
         }
 
         createElements() {
@@ -25,6 +27,7 @@
 
         addListeners() {
             document.querySelector('.close_icon_score').addEventListener('click', (event) => {
+                console.log("close");
                 this.router.go('/');
             });
         }
@@ -36,7 +39,13 @@
 
         resume() {
             super.resume();
-            this.scoreboard.el.showModal();
+            // this.scoreboard.collectionUsers = this.collectionUsers.getCollection();
+            this.collectionUsers.sendRequest()
+            .then(() => {
+                this.scoreboard.setCollection(this.collectionUsers.getCollection());
+                this.addListeners();
+                this.scoreboard.el.showModal(); }
+            );
         }
 
     }

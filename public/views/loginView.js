@@ -105,6 +105,7 @@
 
         pause() {
             super.pause();
+            this.resetFields();
             this.formLogin.el.close();
         }
 

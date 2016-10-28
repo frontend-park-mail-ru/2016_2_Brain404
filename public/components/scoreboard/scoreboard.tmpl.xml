@@ -1,6 +1,6 @@
 <fest:template xmlns:fest="http://fest.mail.ru" context_name="data">
     <div class="close_icon close_icon_{data.name}">
-        <i class="close pink icon float_right"></i>
+        <i class="close pink icon float_right close_icon_{data.name}"></i>
     </div>
     <table class="ui celled padded large table">
         <thead>
@@ -15,48 +15,23 @@
             </tr>
         </thead>
         <tbody>
+            <fest:for iterate="data.collectionUsers" index="i" value="v">
             <tr>
                 <td>
-                    1
+                    <fest:value>i+1</fest:value>
                 </td>
                 <td>
                     <h4 class="ui image header">
                         <div class="content">
-                            Lena
+                            <fest:value>v.login</fest:value>
                         </div>
-                    </h4></td>
+                    </h4>
+                </td>
                 <td>
-                    22
+                    <fest:value>v.max_score</fest:value>
                 </td>
             </tr>
-            <tr>
-                <td>
-                    1
-                </td>
-                <td>
-                    <h4 class="ui image header">
-                        <div class="content">
-                            Lena
-                        </div>
-                    </h4></td>
-                <td>
-                    22
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    1
-                </td>
-                <td>
-                    <h4 class="ui image header">
-                        <div class="content">
-                            Lena
-                        </div>
-                    </h4></td>
-                <td>
-                    22
-                </td>
-            </tr>
+            </fest:for>
         </tbody>
     </table>
 </fest:template>

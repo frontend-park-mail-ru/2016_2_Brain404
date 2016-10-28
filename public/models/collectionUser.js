@@ -1,21 +1,102 @@
 (function () {
 
+    let col = [
+        { login: 5, score: 5 },
+        { login: 4, score: 4 },
+        { login: 3, score: 3 },
+        { login: 2, score: 2 },
+        { login: 1, score: 1 },
+    ];
+    class CollectionUsers {
 
-    // class CollectionUser {
-    //
-    //     constructor(opt) {
-    //         this.collection = opt.collection || {};
-    //         this.collectionSize = opt.collectionSize || 0;
-    //     }
-    //
-    //     createUser() {
-    //         // collection.
-    //     }
-    //
-    //     getCollection(){
-    //         //send request
-    //     }
-    //
-    //
-    // }
+        constructor(opt) {
+            this.responseMap = {
+                200: '1',
+                400: '0',
+                401: '0',
+                403: '0',
+            };
+            this.collection = col;
+            this.collectionSize = opt.collectionSize || 0;
+
+        }
+
+        createCollection() {
+            // col.forEach(el => {
+            //     this.collection.append({ login: el.login, score: el.score });
+            // });
+        }
+
+        sendRequest(to = '/scoreboard?limit=10', method = 'GET') {
+            return new Promise((resolve, reject) => {
+                // const baseUrl = 'https://brain404-backend.herokuapp.com/api';
+                const baseUrl = 'https://nameless-wildwood-32323.herokuapp.com/api';
+                const url = baseUrl + to;
+                const initPomise = {
+                    method,
+                    mode: 'cors',
+                    credentials: 'include',
+                    headers: {
+                        'Content-type': 'application/json',
+                    },
+                };
+                const responseObj = {};
+
+                fetch(url, initPomise)
+                .then(this.status.bind(this))
+                .then((response) => {
+                    this.serverStatus(response)
+                    .then(this.toJson)
+                    .then((data) => {
+                        console.log(data);
+                        this.collection = data;
+                        resolve();
+                    })
+                    .catch((error) => {
+                        this.toJson(error)
+                        .then((error) => {
+                            console.log(error.msg);
+                            reject();
+                        });
+                    });
+                })
+                .catch((error) => {
+                    console.log('Not a server error!');
+                    this.responseObj = { status: 0, msg: 'Not a server error!' };
+                    reject(this.responseObj);
+                });
+            });
+        }
+
+        toJson(response) {
+            return response.json();
+        }
+
+        status(response) {
+            console.log(response.status);
+            if (response.status in this.responseMap) {
+                console.log('resolve');
+                return Promise.resolve(response);
+            } else {
+                console.log('reject');
+                return Promise.reject(response);
+            }
+        }
+
+        serverStatus(response) {
+            if (this.responseMap[response.status] === '1') {
+                return Promise.resolve(response);
+            } else {
+                return Promise.reject(response);
+            }
+        }
+        getCollection() {
+            return this.collection;
+        }
+
+
+    }
+
+    // exports
+    window.CollectionUsers = CollectionUsers;
 }());

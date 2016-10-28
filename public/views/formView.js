@@ -36,6 +36,10 @@
             if (fieldsError) {
                 fieldsError.forEach((field) => { field.classList.remove('error'); });
             }
+            let fields = document.querySelectorAll('input');
+            fields.forEach(field => {
+                field.value = '';
+            });
             return this;
         }
 

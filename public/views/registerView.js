@@ -114,6 +114,7 @@
 
         pause() {
             super.pause();
+            this.resetFields();
             this.formRegister.el.close();
         }
 

@@ -7,6 +7,7 @@
             this.el = opt.el;
             this.name = 'score';
             this.classAttrs = opt.classAttrs || [];
+            this.collectionUsers = [];
             this.render();
         }
 
@@ -22,9 +23,14 @@
             });
         }
 
-        updateHtml() {
+        updateHtml(collection) {
             const _template = window.fest['components/scoreboard/scoreboard.tmpl'](this);
             this.el.innerHTML = _template;
+        }
+
+        setCollection(collection) {
+            this.collectionUsers = collection;
+            this.updateHtml();
         }
     }
 

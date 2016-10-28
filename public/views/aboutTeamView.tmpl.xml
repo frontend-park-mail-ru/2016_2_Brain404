@@ -7,7 +7,7 @@
             </a>
         </div>
         <div class="item">
-            <a href="#" class="ui">
+            <a href="" onclick="return false" class="ui">
                 <i class="credit card alternative pink icon"></i>
             </a>
         </div>
