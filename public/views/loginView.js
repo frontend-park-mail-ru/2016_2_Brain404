@@ -111,7 +111,8 @@
         resume() {
             this.user.getSession()
                 .then(() => { this.router.go('/menu'); console.log(this.user.responseObj); })
-                .catch(() => { super.resume(); this.formLogin.el.showModal(); console.log(this.user.responseObj); });
+                .catch(() => { super.resume(); this.formLogin.el.showModal();
+                    console.log(this.user.responseObj); });
         }
 
     }

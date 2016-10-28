@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "karma start --single-run",
-    "lint": "./node_modules/.bin/eslint public/components/*.js;exit 0",
+    "lint": "./node_modules/.bin/eslint public/**/*.js",
     "fest": "fest-build --dir=public",
     "karma:start": "./node_modules/karma/bin/karma start",
     "karma:run": "./node_modules/karma/bin/karma run"

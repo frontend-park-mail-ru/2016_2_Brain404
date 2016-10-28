@@ -120,7 +120,8 @@
         resume() {
             this.user.getSession()
                 .then(() => { this.router.go('/menu'); console.log(this.user.responseObj); })
-                .catch(() => { super.resume(); this.formRegister.el.showModal(); console.log(this.user.responseObj); });
+                .catch(() => { super.resume(); this.formRegister.el.showModal();
+                    console.log(this.user.responseObj); });
         }
 
     }
