@@ -44,13 +44,24 @@
             });
             document.querySelector('.menu_logout').addEventListener('click', (event) => {
                 console.log('click logout');
+                this.submitLogout();
             });
         }
 
-        menuIcon() {
-            const _template = window.fest['views/mainView.tmpl'](this);
-            return _template;
+        submitLogout() {
+            this.user.sendRequest('/logout', 'DELETE')
+                .then(() => {
+                    this.router.go('/');
+                })
+                .catch(() => {
+                    console.log(`Can't delete session!`);
+                });
         }
+
+        // menuIcon() {
+        //     const _template = window.fest['views/mainView.tmpl'](this);
+        //     return _template;
+        // }
 
         resume() {
             this.user.getSession()

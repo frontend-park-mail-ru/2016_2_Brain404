@@ -100,7 +100,7 @@
                     .then(() => {
                         document.querySelector('form.register').classList.remove('loading');
                         this.formRegister.createMess('success', this.user.responseObj.msg);
-                        setTimeout(() => { this.router.go('/'); }, 2000);
+                        this.router.go('/');
                     })
                     .catch(() => {
                         document.querySelector('form.register').classList.remove('loading');

@@ -50,7 +50,7 @@
 
         login() {
             console.log('login user');
-            this.sendRequest('/login', 'POST', { login: this.login, password: this.password });
+            this.sendRequest('/auth', 'POST', { login: this.login, password: this.password });
         }
 
         sendRequest(to, method, body = {}) {
@@ -61,12 +61,15 @@
                 const initPomise = {
                     method,
                     mode: 'cors',
+                    credentials: 'include',
                     headers: {
                         'Content-type': 'application/json',
                     },
                     body,
+                    // body: JSON.stringify(body),
                 };
                 const responseObj = {};
+                console.log(initPomise);
 
                 fetch(url, initPomise)
                 .then(this.status.bind(this))
