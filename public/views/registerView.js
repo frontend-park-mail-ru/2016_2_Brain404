@@ -12,7 +12,7 @@
             this.createElements();
             this.addElements();
             this.addListeners();
-            this.hide();
+            // this.hide();
         }
 
         createElements() {
@@ -100,7 +100,7 @@
                         document.querySelector('form.register').classList.remove('loading');
                         this.formRegister.createMess('success', this.user.responseObj.msg);
                         this.user.isAuth = 1;
-                        this.user.login = this.user.responseObj.msg;
+                        this.user.id = this.user.responseObj.msg;
                         this.router.go('/');
                     })
                     .catch(() => {

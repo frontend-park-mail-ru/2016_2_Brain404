@@ -87,7 +87,7 @@
                         document.querySelector('form.login').classList.remove('loading');
                         this.formLogin.createMess('success', this.user.responseObj.msg);
                         this.user.isAuth = 1;
-                        this.user.login = this.user.responseObj.msg;
+                        this.user.id = this.user.responseObj.msg;
                         this.router.go('/');
                     })
                     .catch(() => {

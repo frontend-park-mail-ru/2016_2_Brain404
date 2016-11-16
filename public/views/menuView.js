@@ -14,7 +14,7 @@
             this.createElements();
             this.addElements();
             this.addListeners();
-            this.hide();
+            // this.hide();
         }
 
         createElements() {
@@ -25,7 +25,7 @@
                     { iconClass: 'game icon', lable: 'Играть', clas: 'play' },
                     { iconClass: 'ordered list icon', lable: 'Лидерборд', clas: 'scoreboard2' },
                     { iconClass: 'sign out icon', lable: 'Выйти', clas: 'logout' }],
-                login: this.user.login,
+                id: this.user.id,
             });
         }
 
@@ -38,10 +38,15 @@
                 this.router.go('/scoreboard');
             });
             document.querySelector('.menu_play').addEventListener('click', (event) => {
+                this.router.go('/game');
             });
             document.querySelector('.menu_logout').addEventListener('click', (event) => {
                 this.submitLogout();
             });
+            document.querySelector('.about_acount').addEventListener('click', (event) => {
+                this.router.go('/user');
+            });
+
         }
 
         submitLogout() {
@@ -62,7 +67,7 @@
         resume() {
             if (this.user.isAuth) {
                 this._el.style.display = 'block'; this.team.resume();
-                document.querySelector('.about_acount_login').innerHTML = this.user.login;
+                document.querySelector('.about_acount_login').innerHTML = this.user.id;
             } else {
                 this.router.go('/');
             }

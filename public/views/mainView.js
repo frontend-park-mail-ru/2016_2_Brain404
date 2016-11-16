@@ -13,7 +13,7 @@
             this.createElements();
             this.addElements();
             this.addListeners();
-            this.hide();
+            // this.hide();
         }
 
         createElements() {
