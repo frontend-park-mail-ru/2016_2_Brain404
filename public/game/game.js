@@ -18,7 +18,7 @@
 
         start() {
             this.ball.draw(this.ctx);
-            this.ball.dv({ dvx: 0.1, dvy: 0.1 });
+            // this.ball.dv({ dvx: 0.1, dvy: 0.1 });
 
             this.animate();
         }
@@ -50,19 +50,26 @@
 
         doKeys() {
             if (this.key.is('w')) {
-                this.ball.dv({ dvy: -0.01 });
-            }
-
-            if (this.key.is('s')) {
-                this.ball.dv({ dvy: 0.01 });
-            }
-
-            if (this.key.is('a')) {
-                this.ball.dv({ dvx: -0.01 });
-            }
-
-            if (this.key.is('d')) {
-                this.ball.dv({ dvx: 0.01 });
+                this.ball.dv({ dvy: -1 });
+            } else if (this.key.is('s')) {
+                this.ball.dv({ dvy: 1 });
+            } else if (this.key.is('a')) {
+                this.ball.dv({ dvx: -1 });
+            } else if (this.key.is('d')) {
+                this.ball.dv({ dvx: 1 });
+            } else {
+                if (this.ball.vx > 0) {
+                    this.ball.vx -= 1;
+                }
+                if (this.ball.vx < 0) {
+                    this.ball.vx += 1;
+                }
+                if (this.ball.vy > 0) {
+                    this.ball.vy -= 1;
+                }
+                if (this.ball.vy < 0) {
+                    this.ball.vy += 1;
+                }
             }
         }
 

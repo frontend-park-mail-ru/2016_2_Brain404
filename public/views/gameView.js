@@ -9,8 +9,18 @@
             console.log('game');
             super(options);
             this._el = document.querySelector('.js-game');
-            this.init();
+            this.preInit();
             // this.hide();
+        }
+
+        preInit() {
+            this.img = new Image();
+            this.img.onload = () => {
+                console.log(`init ${this.img.src}`);
+                this.init();
+            };
+            console.log("try init");
+            // this.img.src = 'public/game/spritesheet.png';
         }
 
         init() {
