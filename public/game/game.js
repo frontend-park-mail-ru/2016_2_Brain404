@@ -3,23 +3,24 @@
 
     const Player = window.Player;
     const KeyMaster = window.KeyMaster;
+    const Field = window.Field;
 
     class Game {
-        constructor({ ctx, width, height }) {
+        constructor({ ctx, width, height, img }) {
             this.ctx = ctx;
             this.width = width;
             this.height = height;
-
+            this.img = img;
             this.key = new KeyMaster();
             this.key.init();
 
-            this.ball = new Player({ x: 100, y: 100, r: 40, color: '#0e751f' });
+            this.field = new Field({ width: this.width, hight: this.hight, img: this.img });
+            this.ball = new Player({ img: this.img, x: 100, y: 100, r: 40, color: '#0e751f' });
         }
 
         start() {
             this.ball.draw(this.ctx);
-            // this.ball.dv({ dvx: 0.1, dvy: 0.1 });
-
+            this.field.draw(this.ctx);
             this.animate();
         }
 
@@ -30,8 +31,8 @@
                 this.clear();
 
                 this.ball.update(localDate - date);
+                this.field.draw(this.ctx);
                 this.ball.draw(this.ctx);
-
                 this.ball.checkRectIntersection({
                     width: this.width,
                     height: this.height,

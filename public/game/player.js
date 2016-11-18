@@ -2,7 +2,7 @@
     'use strict';
 
     class Player {
-        constructor({ x = 0, y = 0, vx = 0, vy = 0, r = 30, color = '#5d5d15', speed = 20 }) {
+        constructor({ img, x = 0, y = 0, vx = 0, vy = 0, r = 30, color = '#5d5d15', speed = 10 }) {
             this.x = x;
             this.y = y;
 
@@ -11,7 +11,7 @@
             this.speed = speed;
             this.r = r;
             this.color = color;
-            console.log(this.color);
+            this.img = img;
         }
 
         update(dt) {
@@ -21,9 +21,14 @@
 
         draw(ctx) {
             ctx.beginPath();
-            ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
-            ctx.fillStyle = this.color;
-            ctx.fill();
+            let animal = ctx.drawImage(this.img, 593, 595, 284, 285, this.x - (this.r / 2), this.y - (this.r / 2), this.r, this.r);
+            ctx.arc(this.x, this.y, this.r / 2, 0, Math.PI * 2);
+            // ctx.fill();
+            ctx.fillStyle = animal;
+            ctx.stroke();
+            // ctx.fillStyle = this.color;
+
+            // ctx.fill();
             ctx.closePath();
         }
 
@@ -42,11 +47,11 @@
             if (this.y + this.r > rect.height) {
                 result.my = true;
             }
-            if (this.x - this.r < 0) {
+            if (this.x - (this.r / 2) < 0) {
                 result.px = true;
             }
 
-            if (this.y - this.r < 0) {
+            if (this.y - (this.r / 2) < 0) {
                 result.py = true;
             }
 

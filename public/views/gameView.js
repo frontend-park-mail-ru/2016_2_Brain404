@@ -16,11 +16,10 @@
         preInit() {
             this.img = new Image();
             this.img.onload = () => {
-                console.log(`init ${this.img.src}`);
                 this.init();
             };
             console.log("try init");
-            // this.img.src = 'public/game/spritesheet.png';
+            this.img.src = 'img/spritesheet.png';
         }
 
         init() {
@@ -33,14 +32,19 @@
 
         resume(options = {}) {
             document.querySelector('.js-canvas').style.display = 'block';
-            this._game = new Game({
-                ctx: this.ctx,
-                width: 1024,
-                height: 768,
-            });
-            this._game.start();
+            this.img = new Image();
+            this.img.onload = () => {
+                this._game = new Game({
+                    ctx: this.ctx,
+                    width: 1024,
+                    height: 768,
+                    img: this.img,
+                });
+                this._game.start();
 
-            this.show();
+                this.show();
+            };
+            this.img.src = 'img/spritesheet.png';
         }
 
         pause() {
