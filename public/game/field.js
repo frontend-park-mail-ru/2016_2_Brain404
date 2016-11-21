@@ -14,9 +14,7 @@
         }
 
         draw(ctx) {
-            // ctx.beginPath();
             this.fill(ctx);
-            // ctx.closePath();
         }
 
         createField() {
@@ -29,10 +27,8 @@
             this.field.forEach(el => {
                 if (el) {
                     ctx.drawImage(this.img, 299, 5, 64, 64, dx, dy, 64, 64);
-                    ctx.fill();
                 } else {
                     ctx.drawImage(this.img, 373, 5, 64, 64, dx, dy, 64, 64);
-                    ctx.fill();
                 }
                 dx += 64;
                 if (dx === 1024) {

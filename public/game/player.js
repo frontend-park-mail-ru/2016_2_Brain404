@@ -2,7 +2,7 @@
     'use strict';
 
     class Player {
-        constructor({ img, x = 0, y = 0, vx = 0, vy = 0, r = 30, color = '#5d5d15', speed = 10 }) {
+        constructor({ img, x = 0, y = 0, vx = 0, vy = 0, r = 30, color = '#5d5d15', speed = 30 }) {
             this.x = x;
             this.y = y;
 
@@ -20,16 +20,8 @@
         }
 
         draw(ctx) {
-            ctx.beginPath();
+            ctx.clearRect(0, 0, 1024, 768);
             let animal = ctx.drawImage(this.img, 593, 595, 284, 285, this.x - (this.r / 2), this.y - (this.r / 2), this.r, this.r);
-            ctx.arc(this.x, this.y, this.r / 2, 0, Math.PI * 2);
-            // ctx.fill();
-            ctx.fillStyle = animal;
-            ctx.stroke();
-            // ctx.fillStyle = this.color;
-
-            // ctx.fill();
-            ctx.closePath();
         }
 
         checkRectIntersection(rect, action) {
@@ -40,11 +32,11 @@
                 my: false,
             };
 
-            if (this.x + this.r > rect.width) {
+            if (this.x + (this.r / 2) > rect.width) {
                 result.mx = true;
             }
 
-            if (this.y + this.r > rect.height) {
+            if (this.y + (this.r / 2) > rect.height) {
                 result.my = true;
             }
             if (this.x - (this.r / 2) < 0) {

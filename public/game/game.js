@@ -6,8 +6,9 @@
     const Field = window.Field;
 
     class Game {
-        constructor({ ctx, width, height, img }) {
+        constructor({ ctx, ctxField, width, height, img }) {
             this.ctx = ctx;
+            this.ctxField = ctxField;
             this.width = width;
             this.height = height;
             this.img = img;
@@ -19,8 +20,8 @@
         }
 
         start() {
+            this.field.draw(this.ctxField);
             this.ball.draw(this.ctx);
-            this.field.draw(this.ctx);
             this.animate();
         }
 
@@ -28,10 +29,9 @@
             let date = Date.now();
             let doAnimate = () => {
                 let localDate = Date.now();
-                this.clear();
+                this.clear(this.ctx);
 
                 this.ball.update(localDate - date);
-                this.field.draw(this.ctx);
                 this.ball.draw(this.ctx);
                 this.ball.checkRectIntersection({
                     width: this.width,
@@ -74,8 +74,8 @@
             }
         }
 
-        clear() {
-            this.ctx.clearRect(0, 0, this.width, this.height);
+        clear(ctx) {
+            ctx.clearRect(0, 0, this.width, this.height);
             // this.key.destroy();
         }
     }
