@@ -37,6 +37,10 @@
                 }
             });
         }
+
+        getField() {
+            return this.field;
+        }
     }
 
     // export

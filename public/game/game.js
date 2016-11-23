@@ -21,6 +21,7 @@
 
         start() {
             this.field.draw(this.ctxField);
+            this.ball.field = this.field.field;
             this.ball.draw(this.ctx);
             this.animate();
         }
@@ -33,6 +34,7 @@
 
                 this.ball.update(localDate - date);
                 this.ball.draw(this.ctx);
+                this.ball.checkMazeIntersection();
                 this.ball.checkRectIntersection({
                     width: this.width,
                     height: this.height,
@@ -50,6 +52,7 @@
         }
 
         doKeys() {
+            this.ball.saveState();
             if (this.key.is('w')) {
                 this.ball.dv({ dvy: -1 });
             } else if (this.key.is('s')) {

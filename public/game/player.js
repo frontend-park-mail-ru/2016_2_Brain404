@@ -2,7 +2,7 @@
     'use strict';
 
     class Player {
-        constructor({ img, x = 0, y = 0, vx = 0, vy = 0, r = 30, color = '#5d5d15', speed = 30 }) {
+        constructor({ img, x = 0, y = 0, vx = 0, vy = 0, r = 30, color = '#5d5d15', speed = 10, field = [] }) {
             this.x = x;
             this.y = y;
 
@@ -12,6 +12,11 @@
             this.r = r;
             this.color = color;
             this.img = img;
+
+            this.field = field;
+
+            this.oldX = 0;
+            this.oldY = 0;
         }
 
         update(dt) {
@@ -75,6 +80,44 @@
             }
             if (Math.abs(this.vy + dvy) < this.speed) {
                 this.vy += dvy;
+            }
+        }
+
+        saveState() {
+            this.oldX = this.x;
+            this.oldY = this.y;
+        }
+
+        goBack() {
+            if (this.x > this.oldX) {
+                this.x = this.oldX - 1;
+            }
+            else {
+                this.x = this.oldX + 1;
+            }
+
+            if (this.y > this.oldY) {
+                this.y = this.oldY - 1;
+            } else {
+                this.y = this.oldY + 1;
+            }
+        }
+
+        checkMazeIntersection() {
+            if (!this.field[Math.floor((this.x + (this.r / 2)) / 64) + (16 * Math.floor((this.y + (this.r / 2)) / 64))]) {
+                this.goBack();
+            }
+
+            if (!this.field[Math.floor((this.x - (this.r / 2)) / 64) + (16 * Math.floor((this.y - (this.r / 2)) / 64))]) {
+                this.goBack();
+            }
+
+            if (!this.field[Math.floor((this.x + (this.r / 2)) / 64) + (16 * Math.floor((this.y - (this.r / 2)) / 64))]) {
+                this.goBack();
+            }
+
+            if (!this.field[Math.floor((this.x - (this.r / 2)) / 64) + (16 * Math.floor((this.y + (this.r / 2)) / 64))]) {
+                this.goBack();
             }
         }
 
