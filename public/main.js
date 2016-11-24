@@ -11,7 +11,7 @@
         const GameView = window.GameView;
 
         const user = new User({});
-
+        //
         user.getSession()
             .then(() => {
                 (new Router())

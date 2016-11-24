@@ -6,11 +6,20 @@
 
     class Field {
         constructor({ width, hight, img }) {
-            console.log('createField');
-            this.hight = width;
-            this.width = hight;
-            this.img = img;
-            this.createField();
+            this.createField()
+            .then(() => {
+                console.log('createField');
+                this.hight = width;
+                this.width = hight;
+                this.img = img;
+            });
+        }
+
+        static makeField(opt) {
+            return new Promise((resolve, reject) => {
+                let obj = new Field(opt);
+                resolve(obj);
+            });
         }
 
         draw(ctx) {
@@ -18,7 +27,52 @@
         }
 
         createField() {
-            this.field = randomArray(192, 1);
+            return new Promise((resolve, reject) => {
+                // Выбираем по какому протоколу будет производиться соединение
+                const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+
+                // Составляем адрес, по которому будет призводиться соединение
+                const address = `${protocol}//${location.host}/ws/field`;
+                console.log('Создаём новый WebSocket:', address);
+                const ws = new WebSocket(address);
+
+                // обработчик открытия соединения
+                ws.onopen = function (event) {
+                // выводим сообщение, что соединение установлено
+                    console.log('connect');
+                    ws.send(JSON.stringify({ text: 'kyrlick' }));
+                };
+
+                // добавляем обработчик для нового сообщения
+                ws.onmessage = function (event) {
+                    // получаем сообщение
+                    const incomingMessage = event.data;
+
+                    // парсим сообщение
+                    const message = JSON.parse(incomingMessage);
+                    // добавляем сообщение на страницу
+                    console.log(message);
+                    this.field = message.data;
+                    ws.close();
+                    resolve();
+                };
+
+                // обработчик закрытия сокета
+                ws.onclose = function (event) {
+                    if (event.wasClean) {
+                        console.log('Соединение закрыто чисто');
+                    } else {
+                        console.log('Обрыв соединения');
+                    }
+                    console.log(`Код: ${event.code} причина: ${event.reason}`);
+                };
+
+                // обработчик ошибок в сокете
+                ws.onerror = function (error) {
+                    console.log(`Ошибка ${error.message}`);
+                    reject();
+                };
+            });
         }
 
         fill(ctx) {
