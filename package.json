@@ -6,6 +6,7 @@
   "scripts": {
     "test": "karma start --single-run",
     "lint": "./node_modules/.bin/eslint public/**/*.js",
+    "sass": "./node_modules/.bin/node-sass public/css/main.scss public/css/main.css && ./node_modules/.bin/node-sass public/components/form/form.scss public/components/form/form.css && ./node_modules/.bin/node-sass public/components/button/button.scss public/components/button/button.css",
     "fest": "fest-build --dir=public",
     "karma:start": "./node_modules/karma/bin/karma start",
     "karma:run": "./node_modules/karma/bin/karma run"
@@ -40,6 +41,7 @@
     "karma-chrome-launcher": "^2.0.0",
     "karma-coverage": "^1.1.1",
     "karma-jasmine": "^1.0.2",
-    "karma-spec-reporter": "0.0.26"
+    "karma-spec-reporter": "0.0.26",
+    "node-sass": "^3.13.0"
   }
 }

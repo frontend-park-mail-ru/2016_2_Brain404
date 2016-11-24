@@ -1,0 +1,48 @@
+$body-padding : 5vw;
+$about-top : 20px;
+$about-pos : absolute;
+$about-right : 50px;
+$z-account : 10;
+$z-team : 1000;
+$game-pos : relative;
+$canvas-border : 1px solid #000;
+$canvas-padding : 0px !important;
+@mixin js-field-canv($z-index) {
+  display: none;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: $z-index;
+}
+
+body {
+  padding: $body-padding;
+  box-sizing: border-box;
+}
+.about_acount{
+  position: $about-pos;
+  top: $about-top;
+  right: $about-right;
+  z-index: $z-account;
+}
+.about_team{
+  position: $about-pos;
+  top: $about-top;
+  left: $about-right;
+  z-index: $z-team;
+}
+.js-game{
+  position: $game-pos;
+}
+canvas {
+  border: $canvas-border;
+  padding: $canvas-padding;
+}
+
+.js-canvas{
+  @include js-field-canv(2);
+}
+
+.js-field{
+  @include js-field-canv(1);
+}

@@ -14,10 +14,12 @@ install:
 - npm i
 - npm i -g gulp
 - npm i eslint --save-dev
+- npm i node-sass
 - npm i fest --save-dev
 - echo -ne '\n\e[B\npublic/semantic/\n' | npm i semantic-ui --save
 - cd public/semantic && gulp build && cd ../..
 - npm run fest
+- npm run sass
 - npm run lint
 deploy:
   skip_cleanup: true

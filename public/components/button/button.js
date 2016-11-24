@@ -23,10 +23,15 @@
         }
 
         render() {
-            this.el.innerHTML = this.text;
+            this._updateHtml();
             this.setAttrs(this.attrs);
             this.setClassAttrs(this.classAttrs);
             return this;
+        }
+
+        _updateHtml() {
+            const _template = window.fest['components/button/button.tmpl'](this);
+            this.el.innerHTML = _template;
         }
 
         toString() {
