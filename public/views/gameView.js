@@ -47,8 +47,7 @@
                     height: 768,
                     img: this.img,
                 });
-                this._game.start();
-
+                // this._game.start();
                 this.show();
             };
             this.img.src = 'img/spritesheet.png';

@@ -15,8 +15,14 @@
             this.key = new KeyMaster();
             this.key.init();
 
-            this.field = new Field({ width: this.width, hight: this.hight, img: this.img });
-            this.ball = new Player({ img: this.img, x: 100, y: 100, r: 40, color: '#0e751f' });
+            // this.field = new Field({ width: this.width, hight: this.hight, img: this.img });
+            this.field = Field.makeField({ width: this.width, hight: this.hight, img: this.img })
+            .then(() => {
+                this.ball = new Player({ img: this.img, x: 100, y: 100, r: 40, color: '#0e751f' });
+                console.log('WARRRRRRRRRRRUM');
+                this.start();
+            });
+
         }
 
         start() {
