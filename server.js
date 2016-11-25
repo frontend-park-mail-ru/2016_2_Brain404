@@ -20,7 +20,7 @@ app.ws('/ws/field', (ws, req) => {
         try {
             let message = {
                 type: 'field',
-                data: randomArray(192, 1),
+                data: 'Dorofeev Dmitry Anatholich',
             };
             ws.send(JSON.stringify(message));
         } catch (err) {
