@@ -7,6 +7,9 @@ $z-team : 1000;
 $game-pos : relative;
 $canvas-border : 1px solid #000;
 $canvas-padding : 0px !important;
+@import "../components/form/form";
+@import "../components/button/button";
+
 @mixin js-field-canv($z-index) {
   display: none;
   position: absolute;

@@ -6,7 +6,7 @@
   "scripts": {
     "test": "karma start --single-run",
     "lint": "./node_modules/.bin/eslint public/**/*.js",
-    "sass": "./node_modules/.bin/node-sass public/css/main.scss public/css/main.css && ./node_modules/.bin/node-sass public/components/form/form.scss public/components/form/form.css && ./node_modules/.bin/node-sass public/components/button/button.scss public/components/button/button.css",
+    "sass": "./node_modules/.bin/node-sass public/css/main.scss public/css/main.css",
     "fest": "fest-build --dir=public",
     "karma:start": "./node_modules/karma/bin/karma start",
     "karma:run": "./node_modules/karma/bin/karma run"

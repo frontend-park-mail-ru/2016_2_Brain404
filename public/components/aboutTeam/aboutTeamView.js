@@ -11,7 +11,7 @@
         }
 
         brain404Icon() {
-            const _template = window.fest['views/aboutTeamView.tmpl']();
+            const _template = window.fest['components/aboutTeam/aboutTeamView.tmpl']();
             this._el.innerHTML = _template;
         }
 

@@ -5,3 +5,4 @@ public/semantic/
 semantic.json
 **/*.tmpl.js
 public/coverage
+public/**/*.css
