@@ -19,17 +19,20 @@ body {
   padding: $body-padding;
   box-sizing: border-box;
 }
-.about_acount{
-  position: $about-pos;
-  top: $about-top;
-  right: $about-right;
-  z-index: $z-account;
-}
-.about_team{
-  position: $about-pos;
-  top: $about-top;
-  left: $about-right;
-  z-index: $z-team;
+.about {
+  &__acount {
+    position: $about-pos;
+    top: $about-top;
+    right: $about-right;
+    z-index: $z-account;
+  }
+
+  &__team {
+    position: $about-pos;
+    top: $about-top;
+    left: $about-right;
+    z-index: $z-team;
+  }
 }
 .js-game{
   position: $game-pos;
