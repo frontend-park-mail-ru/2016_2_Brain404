@@ -20,8 +20,8 @@
 
         sendRequest(to = '/scoreboard?limit=10', method = 'GET') {
             return new Promise((resolve, reject) => {
-                // const baseUrl = 'https://brain404-backend.herokuapp.com/api';
-                const baseUrl = 'https://nameless-wildwood-32323.herokuapp.com/api';
+                const baseUrl = 'https://brain404-backend.herokuapp.com/api';
+                // const baseUrl = 'https://nameless-wildwood-32323.herokuapp.com/api';
                 const url = baseUrl + to;
                 const initPomise = {
                     method,
@@ -61,6 +61,7 @@
         }
 
         status(response) {
+            // console.log(response.status);
             if (response.status in this.responseMap) {
                 return Promise.resolve(response);
             } else {

@@ -1,0 +1,39 @@
+$dialog-width : 40%;
+$rgba : rgba(0, 0, 0, 0.3);
+$rgba8 : rgba(0, 0, 0, 0.8);
+$form-top : 20px;
+$form-width : 60%;
+$form_float : right;
+$dialog-border: 1px solid;
+$dialog-border-radius: 6px;
+$dialog-box-shadow: 0 3px 7px;
+
+.form__container{
+  max-width: $form-width;
+  margin: auto;
+  margin-top: $form-top;
+}
+
+dialog {
+  max-width: $dialog-width;
+  min-width: $dialog-width;
+  border:  $dialog-border $rgba;
+  border-radius: $dialog-border-radius;
+  box-shadow:  $dialog-box-shadow $rgba;
+}
+
+dialog::backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: $rgba8;
+}
+
+.form_float{
+  float: $form_float;
+}
+.close_icon:hover{
+  cursor: pointer;
+}

@@ -4,4 +4,5 @@ public/api/
 public/semantic/
 semantic.json
 **/*.tmpl.js
-pubic/coverage
+public/coverage
+public/**/*.css

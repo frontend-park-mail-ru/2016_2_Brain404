@@ -7,12 +7,12 @@
     class LoginFormView extends FormView {
         constructor(options = {}) {
             super(options);
+            this.user = options.user;
             this._el = document.querySelector('.login_container_view');
             this.createElements();
             this.addElements();
             this.addListeners();
             this.hide();
-            this.user = options.user;
         }
 
         createElements() {
@@ -87,7 +87,8 @@
                         document.querySelector('form.login').classList.remove('loading');
                         this.formLogin.createMess('success', this.user.responseObj.msg);
                         this.user.isAuth = 1;
-                        this.router.go('/menu');
+                        this.user.id = this.user.responseObj.msg;
+                        this.router.go('/');
                     })
                     .catch(() => {
                         document.querySelector('form.login').classList.remove('loading');
@@ -102,15 +103,19 @@
         pause() {
             super.pause();
             this.resetFields();
-            super.hideMess();
-            this.formLogin.el.close();
+            this.hideMess();
+            if (this.formLogin.el.hasAttribute('open')) {
+                this.formLogin.el.close();
+            }
         }
 
         resume() {
-            this.user.getSession()
-                .then(() => { this.router.go('/menu'); })
-                .catch(() => { super.resume(); this.formLogin.el.showModal();
-                });
+            if (this.user.isAuth) {
+                this.router.go('/menu');
+            } else {
+                super.resume();
+                this.formLogin.el.showModal();
+            }
         }
 
     }

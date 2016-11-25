@@ -5,6 +5,7 @@
             this.attrs = options.attrs || [];
             this.classAttrs = options.classAttrs || [];
             this.el = options.el;
+            this.id = options.id || '';
             this.render();
         }
 
@@ -18,6 +19,14 @@
 
         setList(list) {
             let str = '';
+            if (this.id) {
+                str += `<div class="about_acount"><a class="ui pink label ">
+                	  <i class="child icon big"></i>
+                	  <span class="about_acount_login">${this.id}</span>
+                	</a></div>`;
+            } else {
+                str += `<div class="about_acount"></div>`;
+            }
             list.forEach((element) => {
                 let _template = window.fest['components/menu/menu.tmpl'](element);
                 str += _template;

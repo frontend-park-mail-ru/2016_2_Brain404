@@ -9,7 +9,7 @@
                 403: '0',
             };
             this.email = opt.email || '';
-            this.login = opt.login || '';
+            this.id = opt.id || '';
             this.score = opt.score || 0;
             this.password = opt.password || '';
             this.isAuth = opt.isAuth || 0;
@@ -18,42 +18,42 @@
 
         setUser(opt = {}) {
             this.email = opt.email || '';
-            this.login = opt.login || '';
+            this.id = opt.id || '';
             this.score = opt.score || 0;
             this.password = opt.password || '';
             this.session = opt.session || '';
         }
 
-        getUser() {
-            return { email: this.email,
-                    login: this.login,
-                    score: this.score,
-                    password: this.password,
-                    session: this.session };
-        }
+        // getUser() {
+        //     return { email: this.email,
+        //             login: this.login,
+        //             score: this.score,
+        //             password: this.password,
+        //             session: this.session };
+        // }
 
         getSession() {
             return new Promise((resolve, reject) => {
                 this.sendRequest('/session', 'GET')
-                    .then(() => { this.isAuth = 1; resolve(); })
-                    .catch(() => { reject(); });
+                    .then(() => { this.isAuth = 1; this.id = this.responseObj.msg; resolve(); })
+                    .catch(() => { this.isAuth = 0; resolve(); });
             });
         }
 
-        registration() {
-            this.sendRequest('/registration', 'POST', { email: this.email,
-                                                        login: this.login,
-                                                        password: this.password });
-        }
-
-        login() {
-            this.sendRequest('/auth', 'POST', { login: this.login, password: this.password });
-        }
+        // registration() {
+        //     this.sendRequest('/registration', 'POST', { email: this.email,
+        //         login: this.login,
+        //         password: this.password });
+        // }
+        //
+        // login() {
+        //     this.sendRequest('/auth', 'POST', { login: this.login, password: this.password });
+        // }
 
         sendRequest(to, method, body = {}) {
             return new Promise((resolve, reject) => {
-                // const baseUrl = 'https://brain404-backend.herokuapp.com/api';
-                const baseUrl = 'https://nameless-wildwood-32323.herokuapp.com/api';
+                const baseUrl = 'https://brain404-backend.herokuapp.com/api';
+                // const baseUrl = 'https://nameless-wildwood-32323.herokuapp.com/api';
                 const url = baseUrl + to;
                 const initPomise = {
                     method,
@@ -72,12 +72,14 @@
                     this.serverStatus(response)
                     .then(this.toJson)
                     .then((data) => {
-                        this.responseObj = { status: 1, msg: data.login };
+                        console.log(data);
+                        this.responseObj = { status: 1, msg: data.id };
                         resolve(this.responseObj);
                     })
                     .catch((error) => {
                         this.toJson(error)
                         .then((error) => {
+                            // console.log(error.msg);
                             this.responseObj = { status: 0, msg: error.msg };
                             reject(this.responseObj);
                         });
@@ -95,9 +97,12 @@
         }
 
         status(response) {
+            // console.log(response.status);
             if (response.status in this.responseMap) {
+                // console.log('resolve');
                 return Promise.resolve(response);
             } else {
+                // console.log('reject');
                 return Promise.reject(response);
             }
         }

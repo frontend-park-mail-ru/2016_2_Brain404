@@ -3,10 +3,6 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Brain404</title>
-	<link rel="stylesheet" href="/components/button/button.css" />
-	<link rel="stylesheet" href="/components/form/form.css" />
-	<link rel="stylesheet" href="/components/message/message.css" />
-	<link rel="stylesheet" href="/components/scoreboard/scoreboard.css" />
 	<link rel="stylesheet" href="/css/milligram.min.css"/>
 	<link rel="stylesheet" type="text/css" href="/semantic/dist/semantic.min.css">
 	<link rel="stylesheet" href="/css/main.css" />
@@ -25,30 +21,54 @@
 	</div>
 	<div class="ui centered grid one scoreboard_container_view">
 	</div>
+	<div class="ui centered grid one user_container_view">
+	</div>
+    <div class="user_container_view">
+    </div>
+    <div class="ui centered grid one js-game">
+        <canvas class="js-field"></canvas>
+		<canvas class="js-canvas"></canvas>
+	</div>
+
 	<script src="jquery.min.js"></script>
 	<script src="/semantic/dist/semantic.min.js"></script>
+
 	<script src="/modules/pathToRegex.js"></script>
 	<script src="/modules/view.js"></script>
 	<script src="/modules/route.js"></script>
 	<script src="/modules/router.js"></script>
+
 	<script src="/models/user.js"></script>
 	<script src="/models/collectionUser.js"></script>
+
+    <script src="/components/aboutTeam/aboutTeamView.js"></script>
+	<script src="/components/aboutTeam/aboutTeamView.tmpl.js"></script>
 	<script src="/components/menu/menu.js"></script>
 	<script src="/components/menu/menu.tmpl.js"></script>
 	<script src="/components/button/button.js"></script>
+	<script src="/components/button/button.tmpl.js"></script>
 	<script src="/components/form/form.js"></script>
 	<script src="/components/form/form.tmpl.js"></script>
 	<script src="/components/message/message.js"></script>
 	<script src="/components/scoreboard/scoreboard.js"></script>
 	<script src="/components/scoreboard/scoreboard.tmpl.js"></script>
+
+    <script src="/game/field.js"></script>
+    <script src="/game/keymaster.js"></script>
+	<script src="/game/player.js"></script>
+	<script src="/game/game.js"></script>
+
 	<script src="/views/formView.js"></script>
-	<script src="/views/aboutTeamView.js"></script>
-	<script src="/views/aboutTeamView.tmpl.js"></script>
+	<script src="/views/aboutUserView.js"></script>
 	<script src="/views/registerView.js"></script>
 	<script src="/views/loginView.js"></script>
 	<script src="/views/scoreboardView.js"></script>
+    <script src="/views/gameView.js"></script>
 	<script src="/views/menuView.js"></script>
 	<script src="/views/mainView.js"></script>
+
+    <script src="sw.js"></script>
+
 	<script src="main.js"></script>
 </body>
 </html>

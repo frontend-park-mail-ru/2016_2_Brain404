@@ -7,13 +7,13 @@
     class MainView extends View {
         constructor(options = {}) {
             super(options);
+            this.user = options.user;
             this.team = new AbouTeamView();
             this._el = document.querySelector('.main_container_view');
             this.createElements();
             this.addElements();
             this.addListeners();
-            this.hide();
-            this.user = options.user;
+            // this.hide();
         }
 
         createElements() {
@@ -49,9 +49,11 @@
         }
 
         resume() {
-            this.user.getSession()
-                .then(() => { this.router.go('/menu'); })
-                .catch(() => { this._el.style.display = 'block'; this.team.resume(); });
+            if (this.user.isAuth) {
+                this.router.go('/menu');
+            } else {
+                this._el.style.display = 'block'; this.team.resume();
+            }
         }
 
         pause() {
