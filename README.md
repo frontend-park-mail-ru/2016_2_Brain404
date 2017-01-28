@@ -23,6 +23,3 @@ npm start
 ### Mentor
 * avtyul
 
-
-lol
-asfasfasf
